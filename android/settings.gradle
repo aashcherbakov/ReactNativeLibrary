@@ -1,0 +1,3 @@
+rootProject.name = 'ReactLibrary'
+
+include ':app'
