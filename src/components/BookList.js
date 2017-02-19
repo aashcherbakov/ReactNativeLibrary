@@ -3,6 +3,7 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 
 import { loadBooks } from '../actions';
+import { Spinner } from './shared';
 import BookListItem from './BookListItem';
 
 class BookList extends Component {
@@ -31,7 +32,11 @@ class BookList extends Component {
     return <BookListItem book={book} />;
   }
 
-  render() {
+  renderListView() {
+    if (this.props.loading) {
+      return <Spinner size={'small'} />;
+    }
+
     return (
       <ListView 
         enableEmptySections
@@ -40,11 +45,15 @@ class BookList extends Component {
       />
     );
   }
+
+  render() {
+    return this.renderListView();
+  }
 }
 
 const mapStateToProps = (state) => {
-  const { books } = state.books;
-  return { books };
+  const { books, error, loading } = state.books;
+  return { books, error, loading };
 };
 
 export default connect(mapStateToProps, { loadBooks })(BookList);
