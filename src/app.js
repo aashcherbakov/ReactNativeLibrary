@@ -12,15 +12,16 @@ import ReduxThunk from 'redux-thunk';
 // reducers
 import reducers from './reducers';
 
+// router
+import Router from './router';
+
 class App extends Component {
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     
     return (
       <Provider store={store}>
-        <View>
-          <Text>Hello World</Text>
-        </View>
+        <Router />
       </Provider>
     );
   }
