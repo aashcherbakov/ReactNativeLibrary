@@ -14,6 +14,7 @@ class BookList extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps);
+    console.log(`Will receive props: ${nextProps}`);
   }
 
   createDataSource({ books }) {
@@ -22,9 +23,11 @@ class BookList extends Component {
     });
 
     this.dataSource = dataSource.cloneWithRows(books);
+    console.log(`Create datasource: ${books}`);
   }
 
   renderRow(book) {
+    console.log(`Render row: ${book}`);
     return <BookListItem book={book} />;
   }
 
@@ -40,7 +43,8 @@ class BookList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { books: [] };
+  const { books } = state.books;
+  return { books };
 };
 
 export default connect(mapStateToProps, { loadBooks })(BookList);
