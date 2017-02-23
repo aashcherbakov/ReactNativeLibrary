@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Actions } from 'react-native-router-flux';
 import {
   LOAD_BOOKS,
   LOAD_BOOKS_SUCCESS, 
@@ -11,7 +12,6 @@ import {
 const baseURL = 'https://guarded-retreat-23994.herokuapp.com';
 
 export const loadBooks = () => {
-
   return (dispatch) => {
     dispatch({ type: LOAD_BOOKS });
     axios.get(`${baseURL}/books`)
@@ -28,6 +28,6 @@ export const loadBooks = () => {
 };
 
 export const checkoutBook = () => {
+  Actions.bookList({ type: 'reset' });
   return { type: CHECKOUT_SUCCESS };
 };
-
