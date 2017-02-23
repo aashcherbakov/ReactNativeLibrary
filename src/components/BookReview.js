@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { Button, Spinner, Input } from './shared';
+import { Button, Spinner } from './shared';
+import BookDescription from './BookDescription';
 
 class BookReview extends Component {
   onButtonPress() {
@@ -13,40 +14,32 @@ class BookReview extends Component {
     }
 
     return (
-      <Button onPress={this.onButtonPress.bind(this)} style={{ height: 44 }}>
+      <Button onPress={this.onButtonPress.bind(this)} style={styles.button}>
         Check Out
       </Button>
     );
   }
 
   render() {
-    const { title, author, publisher, categories } = this.props.book;
+    const { title, author } = this.props.book;
     return (
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-          <Input 
-            label='Title'
-            placeholder='iOS CookBook'
-            value={title}
-          />
-          <Input 
-            label='Author'
-            placeholder='Ernest Hemingway'
-            value={author}
-          />
-          <Input 
-            label='Categories'
-            placeholder='iOS, Android'
-            value={categories}
-          />
-          <Input 
-            label='Publisher'
-            placeholder='Ray Wenderlich'
-            value={publisher}
-          />
+      <View style={styles.mainContainer}>
+        <View style={styles.descriptionContainer}>
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{title}</Text>
+          </View>
+
+          <View style={styles.authorContainer}>
+            <Text style={styles.authorText}>{author}</Text>
+          </View>
+          
+          <BookDescription style={styles.descriptionContainer}>
+            {this.props.book}
+          </BookDescription>
+
         </View>
-        
-        <View style={{ paddingTop: 50, flex: 2 }}>
+        <View style={styles.buttonContainer}>
           {this.renderButton()}
         </View>
         
@@ -54,5 +47,39 @@ class BookReview extends Component {
     );
   }
 }
+
+const styles = {
+  mainContainer: {
+    flex: 1
+  },
+  descriptionContainer: {
+    flex: 1
+  },
+  titleContainer: {
+    alignItems: 'center',
+    paddingTop: 20,
+    flex: 1
+  },
+  title: {    
+    fontWeight: 'bold',
+    fontSize: 18
+  },
+  authorContainer: {
+    alignItems: 'center',
+    flex: 1
+  },
+  authorText: {
+    fontSize: 16
+  },
+  textBold: {
+    fontWeight: 'bold'
+  },
+  buttonContainer: {
+    flex: 2
+  },
+  button: {
+    height: 44
+  }
+};
 
 export default BookReview;

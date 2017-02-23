@@ -2,7 +2,10 @@ import axios from 'axios';
 import {
   LOAD_BOOKS,
   LOAD_BOOKS_SUCCESS, 
-  LOAD_BOOKS_FAILED  
+  LOAD_BOOKS_FAILED,
+  CHECKOUT_BOOK,
+  CHECKOUT_SUCCESS,
+  CHECKOUT_FAILED
 } from './types';
 
 const baseURL = 'https://guarded-retreat-23994.herokuapp.com';
@@ -22,5 +25,9 @@ export const loadBooks = () => {
         dispatch({ type: LOAD_BOOKS_FAILED });
       });
   };
+};
+
+export const checkoutBook = () => {
+  return { type: CHECKOUT_SUCCESS };
 };
 
