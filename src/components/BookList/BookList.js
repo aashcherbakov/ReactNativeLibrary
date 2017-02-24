@@ -52,7 +52,7 @@ class BookList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { books, error, loading } = state.books;
+  const { books, error, loading } = state;
   return { books, error, loading };
 };
 

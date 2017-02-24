@@ -35,5 +35,5 @@ export const checkoutBook = () => {
 
 export const openBook = (book) => {
   Actions.bookInfo({ book });
-  return { type: OPEN_BOOK };
+  return { type: OPEN_BOOK, payload: book };
 };

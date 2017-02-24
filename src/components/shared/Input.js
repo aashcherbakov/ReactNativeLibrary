@@ -24,7 +24,8 @@ const styles = {
     paddingRight: 5,
     paddingLeft: 20,
     fontSize: 16,
-    flex: 3
+    minHeight: 50,
+    flex: 2
   },
   labelStyle: {
     fontSize: 12,
@@ -34,7 +35,7 @@ const styles = {
   },
   containerStyle: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 };
 
