@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 
-import { loadBooks } from '../actions';
-import { Spinner } from './shared';
+import { loadBooks } from '../../actions';
+import { Spinner } from '../shared';
 import BookListItem from './BookListItem';
 
 class BookList extends Component {

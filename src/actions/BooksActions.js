@@ -6,7 +6,8 @@ import {
   LOAD_BOOKS_FAILED,
   CHECKOUT_BOOK,
   CHECKOUT_SUCCESS,
-  CHECKOUT_FAILED
+  CHECKOUT_FAILED,
+  OPEN_BOOK
 } from './types';
 
 const baseURL = 'https://guarded-retreat-23994.herokuapp.com';
@@ -28,6 +29,11 @@ export const loadBooks = () => {
 };
 
 export const checkoutBook = () => {
-  Actions.bookList({ type: 'reset' });
+  Actions.bookList({ type: 'back' });
   return { type: CHECKOUT_SUCCESS };
+};
+
+export const openBook = (book) => {
+  Actions.bookInfo({ book });
+  return { type: OPEN_BOOK };
 };

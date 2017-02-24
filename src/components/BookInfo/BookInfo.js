@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { Button, Spinner } from './shared';
+import { Button, Spinner } from '../shared';
 import BookDescription from './BookDescription';
-import { checkoutBook } from '../actions';
+import { checkoutBook } from '../../actions';
 
-class BookReview extends Component {
+class BookInfo extends Component {
   
   onButtonPress() {
     this.props.checkoutBook();
@@ -85,4 +85,4 @@ const styles = {
   }
 };
 
-export default connect(null, { checkoutBook })(BookReview);
+export default connect(null, { checkoutBook })(BookInfo);

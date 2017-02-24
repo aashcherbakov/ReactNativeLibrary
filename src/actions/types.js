@@ -5,3 +5,5 @@ export const LOAD_BOOKS_FAILED = 'load_books_failed';
 export const CHECKOUT_BOOK = 'checkout_book';
 export const CHECKOUT_SUCCESS = 'checkout_success';
 export const CHECKOUT_FAILED = 'checkout_failed';
+
+export const OPEN_BOOK = 'open_book';

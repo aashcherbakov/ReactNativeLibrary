@@ -1,7 +1,8 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
-import BookList from './components/BookList';
-import BookReview from './components/BookReview';
+import { Actions, Scene, Router } from 'react-native-router-flux';
+import BookList from './components/BookList/BookList';
+import BookReview from './components/BookInfo/BookInfo';
+import BookEdit from './components/BookEdit/BookEdit';
 
 const RouterComponent = () => (
   <Router sceneStyle={{ paddingTop: 64 }}>
@@ -12,9 +13,16 @@ const RouterComponent = () => (
       title='Prolific Library' 
     />
     <Scene
-      key='bookReview'
+      key='bookInfo'
       component={BookReview}
       title='Preview'
+      rightTitle='Edit'
+      onRight={() => Actions.editBook()}
+    />
+    <Scene
+      key='editBook'
+      component={BookEdit}
+      title='Editing'
     />
   </Router>
 );

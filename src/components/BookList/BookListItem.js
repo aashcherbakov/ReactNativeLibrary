@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { openBook } from '../../actions';
 
 class BookListItem extends Component {
 
   onRowPress() {
-    Actions.bookReview({ book: this.props.book });
+    this.props.openBook(this.props.book);
   }
 
   render() {
@@ -48,4 +49,4 @@ const styles = {
   }
 };
 
-export default BookListItem;
+export default connect(null, { openBook })(BookListItem);
