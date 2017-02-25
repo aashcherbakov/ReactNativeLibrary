@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import { Button } from '../shared';
-import { modifyBookProperty } from '../../actions';
+import { modifyBookProperty, updateBook } from '../../actions';
 import BookEditForm from './BookEditForm';
 
 class BookEdit extends Component {
@@ -14,12 +14,21 @@ class BookEdit extends Component {
     }); 
   }
 
+  onSavePressed() {
+    const { title, author, publisher, categories } = this.props;
+    this.props.updateBook(this.props.openedBook, { 
+      publisher, title, author, categories
+    });
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
         <BookEditForm />
         <View style={{ flex: 1 }}>
-          <Button>Save</Button>
+          <Button onPress={this.onSavePressed.bind(this)}>
+            Save
+          </Button>
         </View>
       </View>
     );
@@ -28,7 +37,8 @@ class BookEdit extends Component {
 
 const mapStateToProps = (state) => {
   const { openedBook } = state.booksList;
-  return { openedBook };
+  const { title, author, publisher, categories } = state.bookEdit;
+  return { openedBook, title, author, publisher, categories };
 };
 
-export default connect(mapStateToProps, { modifyBookProperty })(BookEdit);
+export default connect(mapStateToProps, { modifyBookProperty, updateBook })(BookEdit);

@@ -9,3 +9,6 @@ export const CHECKOUT_FAILED = 'checkout_failed';
 export const OPEN_BOOK = 'open_book';
 
 export const MODIFY_BOOK_PROPERTY = 'modify_book_property';
+export const UPDATE_BOOK = 'update_book';
+export const UPDATE_BOOK_SUCCESS = 'update_book_success';
+export const UPDATE_BOOK_FAILED = 'update_book_failed';

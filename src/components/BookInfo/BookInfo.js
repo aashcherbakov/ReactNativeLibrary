@@ -3,13 +3,9 @@ import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Spinner } from '../shared';
 import BookDescription from './BookDescription';
-import { checkoutBook, editBook } from '../../actions';
+import { checkoutBook } from '../../actions';
 
 class BookInfo extends Component {
-
-  onEditButton() {
-    this.props.editBook(this.props.book);
-  }
   
   onButtonPress() {
     this.props.checkoutBook();
@@ -89,4 +85,9 @@ const styles = {
   }
 };
 
-export default connect(null, { checkoutBook, editBook })(BookInfo);
+const mapStateToProps = state => {
+  const book = state.booksList.openedBook;
+  return { book };
+};
+
+export default connect(mapStateToProps, { checkoutBook })(BookInfo);

@@ -70711,7 +70711,10 @@ __d(/* ReactLibrary/src/reducers/BooksListReducer.js */function(global, require,
 
 
 
-var INITIAL_STATE={};exports.default=
+
+var INITIAL_STATE={
+books:[],
+loading:true};exports.default=
 
 
 function(){var state=arguments.length>0&&arguments[0]!==undefined?arguments[0]:INITIAL_STATE;var action=arguments[1];
@@ -70719,10 +70722,12 @@ switch(action.type){
 case _types.LOAD_BOOKS:
 return babelHelpers.extends({},state,{loading:true});
 case _types.LOAD_BOOKS_SUCCESS:
-return action.payload;
+return{books:action.payload};
 case _types.LOAD_BOOKS_FAILED:
 return babelHelpers.extends({},state,{loading:false,error:'Error'});
 case _types.OPEN_BOOK:
+return babelHelpers.extends({},state,{openedBook:action.payload});
+case _types.UPDATE_BOOK_SUCCESS:
 return babelHelpers.extends({},state,{openedBook:action.payload});
 default:
 return state;}
@@ -70740,6 +70745,9 @@ var CHECKOUT_FAILED=exports.CHECKOUT_FAILED='checkout_failed';
 var OPEN_BOOK=exports.OPEN_BOOK='open_book';
 
 var MODIFY_BOOK_PROPERTY=exports.MODIFY_BOOK_PROPERTY='modify_book_property';
+var UPDATE_BOOK=exports.UPDATE_BOOK='update_book';
+var UPDATE_BOOK_SUCCESS=exports.UPDATE_BOOK_SUCCESS='update_book_success';
+var UPDATE_BOOK_FAILED=exports.UPDATE_BOOK_FAILED='update_book_failed';
 }, 444, null, "ReactLibrary/src/actions/types.js");
 __d(/* ReactLibrary/src/reducers/BookEditReducer.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(444               ); // 444 = ../actions/types
 
@@ -76388,20 +76396,17 @@ this.createDataSource(this.props);
 
 nextProps){
 this.createDataSource(nextProps);
-console.log('Will receive props: '+nextProps);
 }},{key:'createDataSource',value:function createDataSource(_ref)
 
-{var booksList=_ref.booksList;
+{var books=_ref.books;
 var dataSource=new _reactNative.ListView.DataSource({
 rowHasChanged:function rowHasChanged(r1,r2){return r1!==r2;}});
 
 
-this.dataSource=dataSource.cloneWithRows(booksList);
-console.log('Create datasource: '+booksList);
+this.dataSource=dataSource.cloneWithRows(books);
 }},{key:'renderRow',value:function renderRow(
 
 book){
-console.log('Render row: '+book);
 return _react2.default.createElement(_BookListItem2.default,{book:book});
 }},{key:'renderListView',value:function renderListView()
 
@@ -76424,9 +76429,9 @@ return this.renderListView();
 }}]);return BookList;}(_react.Component);
 
 
-var mapStateToProps=function mapStateToProps(state){var
-booksList=state.booksList,error=state.error,loading=state.loading;
-return{booksList:booksList,error:error,loading:loading};
+var mapStateToProps=function mapStateToProps(state){var _state$booksList=
+state.booksList,books=_state$booksList.books,error=_state$booksList.error,loading=_state$booksList.loading;
+return{books:books,error:error,loading:loading};
 };exports.default=
 
 (0,_reactRedux.connect)(mapStateToProps,{loadBooks:_actions.loadBooks})(BookList);
@@ -76443,13 +76448,12 @@ var _types=require(444      ); // 444 = ./types
 
 
 
-
-var baseURL='https://guarded-retreat-23994.herokuapp.com';
+var _constants=require(678           ); // 678 = ../constants
 
 var loadBooks=exports.loadBooks=function loadBooks(){
 return function(dispatch){
 dispatch({type:_types.LOAD_BOOKS});
-_axios2.default.get(baseURL+'/books').
+_axios2.default.get(_constants.BASE_URL+'/books').
 then(function(books){
 dispatch({
 type:_types.LOAD_BOOKS_SUCCESS,
@@ -77832,19 +77836,33 @@ return callback.apply(null,arr);
 };
 };
 }, 521, null, "axios/lib/helpers/spread.js");
-__d(/* ReactLibrary/src/actions/BookEditActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.editBook=exports.modifyBookProperty=undefined;var _reactNativeRouterFlux=require(447                       ); // 447 = react-native-router-flux
+__d(/* ReactLibrary/src/constants.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var BASE_URL=exports.BASE_URL='https://guarded-retreat-23994.herokuapp.com';
+}, 678, null, "ReactLibrary/src/constants.js");
+__d(/* ReactLibrary/src/actions/BookEditActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.updateBook=exports.modifyBookProperty=undefined;var _axios=require(497    );var _axios2=babelHelpers.interopRequireDefault(_axios); // 497 = axios
 var _types=require(444      ); // 444 = ./types
 
 
+
+
+
+var _constants=require(678           ); // 678 = ../constants
 
 var modifyBookProperty=exports.modifyBookProperty=function modifyBookProperty(_ref){var prop=_ref.prop,value=_ref.value;return{
 type:_types.MODIFY_BOOK_PROPERTY,
 payload:{prop:prop,value:value}};};
 
 
-var editBook=exports.editBook=function editBook(book){
-_reactNativeRouterFlux.Actions.editBook({book:book});
-return{type:'edit_book'};
+var updateBook=exports.updateBook=function updateBook(book,updatedProps){
+return function(dispatch){
+dispatch({type:_types.UPDATE_BOOK});
+_axios2.default.put(_constants.BASE_URL+'/'+book.url,updatedProps).
+then(function(updatedBook){
+dispatch({type:_types.UPDATE_BOOK_SUCCESS,payload:updatedBook.data});
+}).
+catch(function(err){
+dispatch({type:_types.UPDATE_BOOK_FAILED,payload:err});
+});
+};
 };
 }, 522, null, "ReactLibrary/src/actions/BookEditActions.js");
 __d(/* ReactLibrary/src/components/shared/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _Spinner=require(524        );Object.keys(_Spinner).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Spinner[key];}});});var _Button=require(525       ); // 525 = ./Button // 524 = ./Spinner
@@ -78011,11 +78029,7 @@ var _shared=require(523        ); // 523 = ../shared
 var _BookDescription=require(529                );var _BookDescription2=babelHelpers.interopRequireDefault(_BookDescription); // 529 = ./BookDescription
 var _actions=require(495            );var // 495 = ../../actions
 
-BookInfo=function(_Component){babelHelpers.inherits(BookInfo,_Component);function BookInfo(){babelHelpers.classCallCheck(this,BookInfo);return babelHelpers.possibleConstructorReturn(this,(BookInfo.__proto__||Object.getPrototypeOf(BookInfo)).apply(this,arguments));}babelHelpers.createClass(BookInfo,[{key:'onEditButton',value:function onEditButton()
-
-{
-this.props.editBook(this.props.book);
-}},{key:'onButtonPress',value:function onButtonPress()
+BookInfo=function(_Component){babelHelpers.inherits(BookInfo,_Component);function BookInfo(){babelHelpers.classCallCheck(this,BookInfo);return babelHelpers.possibleConstructorReturn(this,(BookInfo.__proto__||Object.getPrototypeOf(BookInfo)).apply(this,arguments));}babelHelpers.createClass(BookInfo,[{key:'onButtonPress',value:function onButtonPress()
 
 {
 this.props.checkoutBook();
@@ -78091,11 +78105,16 @@ buttonContainer:{
 flex:2},
 
 button:{
-height:44}};exports.default=
+height:44}};
 
 
 
-(0,_reactRedux.connect)(null,{checkoutBook:_actions.checkoutBook,editBook:_actions.editBook})(BookInfo);
+var mapStateToProps=function mapStateToProps(state){
+var book=state.booksList.openedBook;
+return{book:book};
+};exports.default=
+
+(0,_reactRedux.connect)(mapStateToProps,{checkoutBook:_actions.checkoutBook})(BookInfo);
 }, 528, null, "ReactLibrary/src/components/BookInfo/BookInfo.js");
 __d(/* ReactLibrary/src/components/BookInfo/BookDescription.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
@@ -78153,10 +78172,15 @@ BookEdit=function(_Component){babelHelpers.inherits(BookEdit,_Component);functio
 {var _this2=this;
 var book=this.props.openedBook;
 Object.keys(book).forEach(function(key){
-console.log(key);
-console.log(book[key]);
 _this2.props.modifyBookProperty({prop:key,value:book[key]});
 });
+}},{key:'onSavePressed',value:function onSavePressed()
+
+{var _props=
+this.props,title=_props.title,author=_props.author,publisher=_props.publisher,categories=_props.categories;
+this.props.updateBook(this.props.openedBook,{
+publisher:publisher,title:title,author:author,categories:categories});
+
 }},{key:'render',value:function render()
 
 {
@@ -78164,7 +78188,8 @@ return(
 _react2.default.createElement(_reactNative.View,{style:{flex:1}},
 _react2.default.createElement(_BookEditForm2.default,null),
 _react2.default.createElement(_reactNative.View,{style:{flex:1}},
-_react2.default.createElement(_shared.Button,null,'Save'))));
+_react2.default.createElement(_shared.Button,{onPress:this.onSavePressed.bind(this)},'Save'))));
+
 
 
 
@@ -78173,11 +78198,12 @@ _react2.default.createElement(_shared.Button,null,'Save'))));
 
 
 var mapStateToProps=function mapStateToProps(state){var
-openedBook=state.booksList.openedBook;
-return{openedBook:openedBook};
+openedBook=state.booksList.openedBook;var _state$bookEdit=
+state.bookEdit,title=_state$bookEdit.title,author=_state$bookEdit.author,publisher=_state$bookEdit.publisher,categories=_state$bookEdit.categories;
+return{openedBook:openedBook,title:title,author:author,publisher:publisher,categories:categories};
 };exports.default=
 
-(0,_reactRedux.connect)(mapStateToProps,{modifyBookProperty:_actions.modifyBookProperty})(BookEdit);
+(0,_reactRedux.connect)(mapStateToProps,{modifyBookProperty:_actions.modifyBookProperty,updateBook:_actions.updateBook})(BookEdit);
 }, 530, null, "ReactLibrary/src/components/BookEdit/BookEdit.js");
 __d(/* ReactLibrary/src/components/BookEdit/BookEditForm.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native

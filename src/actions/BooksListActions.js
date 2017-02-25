@@ -7,13 +7,12 @@ import {
   CHECKOUT_SUCCESS,
   OPEN_BOOK
 } from './types';
-
-const baseURL = 'https://guarded-retreat-23994.herokuapp.com';
+import { BASE_URL } from '../constants';
 
 export const loadBooks = () => {
   return (dispatch) => {
     dispatch({ type: LOAD_BOOKS });
-    axios.get(`${baseURL}/books`)
+    axios.get(`${BASE_URL}/books`)
       .then(books => {
         dispatch({
           type: LOAD_BOOKS_SUCCESS,
