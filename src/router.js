@@ -1,7 +1,7 @@
 import React from 'react';
 import { Actions, Scene, Router } from 'react-native-router-flux';
 import BookList from './components/BookList/BookList';
-import BookReview from './components/BookInfo/BookInfo';
+import BookInfo from './components/BookInfo/BookInfo';
 import BookEdit from './components/BookEdit/BookEdit';
 
 const RouterComponent = () => (
@@ -14,7 +14,7 @@ const RouterComponent = () => (
     />
     <Scene
       key='bookInfo'
-      component={BookReview}
+      component={BookInfo}
       title='Preview'
       rightTitle='Edit'
       onRight={() => Actions.editBook()}

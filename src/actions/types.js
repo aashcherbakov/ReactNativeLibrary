@@ -8,4 +8,4 @@ export const CHECKOUT_FAILED = 'checkout_failed';
 
 export const OPEN_BOOK = 'open_book';
 
-export const EDIT_BOOK = 'edit_book';
+export const MODIFY_BOOK_PROPERTY = 'modify_book_property';

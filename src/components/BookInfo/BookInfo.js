@@ -3,9 +3,13 @@ import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Spinner } from '../shared';
 import BookDescription from './BookDescription';
-import { checkoutBook } from '../../actions';
+import { checkoutBook, editBook } from '../../actions';
 
 class BookInfo extends Component {
+
+  onEditButton() {
+    this.props.editBook(this.props.book);
+  }
   
   onButtonPress() {
     this.props.checkoutBook();
@@ -85,4 +89,4 @@ const styles = {
   }
 };
 
-export default connect(null, { checkoutBook })(BookInfo);
+export default connect(null, { checkoutBook, editBook })(BookInfo);

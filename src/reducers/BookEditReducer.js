@@ -1,5 +1,5 @@
 import {
-  EDIT_BOOK
+  MODIFY_BOOK_PROPERTY
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -11,8 +11,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case EDIT_BOOK: 
-      return { ...state, [action.payload.prop]: [action.payload.value] };
+    case MODIFY_BOOK_PROPERTY: 
+      return { ...state, [action.payload.prop]: action.payload.value };
     default:
       return state;
   }

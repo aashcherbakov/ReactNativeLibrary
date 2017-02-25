@@ -1,43 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text } from 'react-native';
-import { Input, Button } from '../shared';
-
-// display book info in imputs
-// make call to update book
-// update book in BookInfo
+import { View } from 'react-native';
+import { Button } from '../shared';
+import { modifyBookProperty } from '../../actions';
+import BookEditForm from './BookEditForm';
 
 class BookEdit extends Component {
 
-  onTextChange(text, source) {
-    
+  componentWillMount() {
+    const book = this.props.openedBook;
+    Object.keys(book).forEach(key => {
+      this.props.modifyBookProperty({ prop: key, value: book[key] });
+    }); 
   }
 
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <Input 
-            label='Title'
-            value={this.props.openedBook.title} 
-          />
-          <Input 
-            label='Author'
-            value={this.props.openedBook.author} 
-          />
-          <Input 
-            label='Publisher'
-            value={this.props.openedBook.publisher} 
-          />
-          <Input 
-            label='Categories'
-            value={this.props.openedBook.categories} 
-          />
-        </View>
+        <BookEditForm />
         <View style={{ flex: 1 }}>
           <Button>Save</Button>
         </View>
-
       </View>
     );
   }
@@ -48,4 +31,4 @@ const mapStateToProps = (state) => {
   return { openedBook };
 };
 
-export default connect(mapStateToProps, { })(BookEdit);
+export default connect(mapStateToProps, { modifyBookProperty })(BookEdit);
