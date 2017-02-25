@@ -7,3 +7,5 @@ export const CHECKOUT_SUCCESS = 'checkout_success';
 export const CHECKOUT_FAILED = 'checkout_failed';
 
 export const OPEN_BOOK = 'open_book';
+
+export const EDIT_BOOK = 'edit_book';

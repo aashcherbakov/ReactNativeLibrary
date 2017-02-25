@@ -18,13 +18,13 @@ class BookList extends Component {
     console.log(`Will receive props: ${nextProps}`);
   }
 
-  createDataSource({ books }) {
+  createDataSource({ booksList }) {
     const dataSource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.dataSource = dataSource.cloneWithRows(books);
-    console.log(`Create datasource: ${books}`);
+    this.dataSource = dataSource.cloneWithRows(booksList);
+    console.log(`Create datasource: ${booksList}`);
   }
 
   renderRow(book) {
@@ -52,8 +52,8 @@ class BookList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { books, error, loading } = state;
-  return { books, error, loading };
+  const { booksList, error, loading } = state;
+  return { booksList, error, loading };
 };
 
 export default connect(mapStateToProps, { loadBooks })(BookList);

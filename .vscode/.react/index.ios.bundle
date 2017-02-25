@@ -68616,7 +68616,7 @@ var _reduxThunk=require(441          );var _reduxThunk2=babelHelpers.interopRequ
 var _reducers=require(442         );var _reducers2=babelHelpers.interopRequireDefault(_reducers); // 442 = ./reducers
 
 
-var _router=require(445       );var _router2=babelHelpers.interopRequireDefault(_router);var // 445 = ./router
+var _router=require(446       );var _router2=babelHelpers.interopRequireDefault(_router);var // 446 = ./router
 
 App=function(_Component){babelHelpers.inherits(App,_Component);function App(){babelHelpers.classCallCheck(this,App);return babelHelpers.possibleConstructorReturn(this,(App.__proto__||Object.getPrototypeOf(App)).apply(this,arguments));}babelHelpers.createClass(App,[{key:'render',value:function render()
 {
@@ -70697,12 +70697,14 @@ thunk.withExtraArgument=createThunkMiddleware;
 exports['default']=thunk;
 }, 441, null, "redux-thunk/lib/index.js");
 __d(/* ReactLibrary/src/reducers/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _redux=require(415    ); // 415 = redux
-var _BooksReducer=require(443             );var _BooksReducer2=babelHelpers.interopRequireDefault(_BooksReducer);exports.default= // 443 = ./BooksReducer
+var _BooksListReducer=require(443                 );var _BooksListReducer2=babelHelpers.interopRequireDefault(_BooksListReducer); // 443 = ./BooksListReducer
+var _BookEditReducer=require(445                );var _BookEditReducer2=babelHelpers.interopRequireDefault(_BookEditReducer);exports.default= // 445 = ./BookEditReducer
 
 (0,_redux.combineReducers)({
-books:_BooksReducer2.default});
+booksList:_BooksListReducer2.default,
+bookEdit:_BookEditReducer2.default});
 }, 442, null, "ReactLibrary/src/reducers/index.js");
-__d(/* ReactLibrary/src/reducers/BooksReducer.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(444               ); // 444 = ../actions/types
+__d(/* ReactLibrary/src/reducers/BooksListReducer.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(444               ); // 444 = ../actions/types
 
 
 
@@ -70717,7 +70719,7 @@ switch(action.type){
 case _types.LOAD_BOOKS:
 return babelHelpers.extends({},state,{loading:true});
 case _types.LOAD_BOOKS_SUCCESS:
-return babelHelpers.extends({},state,{loading:false,books:action.payload});
+return action.payload;
 case _types.LOAD_BOOKS_FAILED:
 return babelHelpers.extends({},state,{loading:false,error:'Error'});
 case _types.OPEN_BOOK:
@@ -70726,7 +70728,7 @@ default:
 return state;}
 
 };
-}, 443, null, "ReactLibrary/src/reducers/BooksReducer.js");
+}, 443, null, "ReactLibrary/src/reducers/BooksListReducer.js");
 __d(/* ReactLibrary/src/actions/types.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var LOAD_BOOKS=exports.LOAD_BOOKS='load_books';
 var LOAD_BOOKS_SUCCESS=exports.LOAD_BOOKS_SUCCESS='load_books_success';
 var LOAD_BOOKS_FAILED=exports.LOAD_BOOKS_FAILED='load_books_failed';
@@ -70736,12 +70738,34 @@ var CHECKOUT_SUCCESS=exports.CHECKOUT_SUCCESS='checkout_success';
 var CHECKOUT_FAILED=exports.CHECKOUT_FAILED='checkout_failed';
 
 var OPEN_BOOK=exports.OPEN_BOOK='open_book';
+
+var EDIT_BOOK=exports.EDIT_BOOK='edit_book';
 }, 444, null, "ReactLibrary/src/actions/types.js");
+__d(/* ReactLibrary/src/reducers/BookEditReducer.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(444               ); // 444 = ../actions/types
+
+
+
+var INITIAL_STATE={
+title:'',
+author:'',
+categories:'',
+publisher:''};exports.default=
+
+
+function(){var state=arguments.length>0&&arguments[0]!==undefined?arguments[0]:INITIAL_STATE;var action=arguments[1];
+switch(action.type){
+case _types.EDIT_BOOK:
+return babelHelpers.extends({},state,babelHelpers.defineProperty({},action.payload.prop,[action.payload.value]));
+default:
+return state;}
+
+};
+}, 445, null, "ReactLibrary/src/reducers/BookEditReducer.js");
 __d(/* ReactLibrary/src/router.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
-var _reactNativeRouterFlux=require(446                       ); // 446 = react-native-router-flux
-var _BookList=require(493                             );var _BookList2=babelHelpers.interopRequireDefault(_BookList); // 493 = ./components/BookList/BookList
-var _BookInfo=require(526                             );var _BookInfo2=babelHelpers.interopRequireDefault(_BookInfo); // 526 = ./components/BookInfo/BookInfo
-var _BookEdit=require(528                             );var _BookEdit2=babelHelpers.interopRequireDefault(_BookEdit); // 528 = ./components/BookEdit/BookEdit
+var _reactNativeRouterFlux=require(447                       ); // 447 = react-native-router-flux
+var _BookList=require(494                             );var _BookList2=babelHelpers.interopRequireDefault(_BookList); // 494 = ./components/BookList/BookList
+var _BookInfo=require(528                             );var _BookInfo2=babelHelpers.interopRequireDefault(_BookInfo); // 528 = ./components/BookInfo/BookInfo
+var _BookEdit=require(530                             );var _BookEdit2=babelHelpers.interopRequireDefault(_BookEdit); // 530 = ./components/BookEdit/BookEdit
 
 var RouterComponent=function RouterComponent(){return(
 _react2.default.createElement(_reactNativeRouterFlux.Router,{sceneStyle:{paddingTop:64}},
@@ -70767,20 +70791,20 @@ title:'Editing'})));};exports.default=
 
 
 RouterComponent;
-}, 445, null, "ReactLibrary/src/router.js");
-__d(/* react-native-router-flux/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Util=exports.getInitialState=exports.TabbedView=exports.TabBar=exports.Switch=exports.Scene=exports.Router=exports.Reducer=exports.NavBar=exports.Modal=exports.DefaultRenderer=exports.ActionConst=exports.Actions=undefined;var _Actions=require(447            );var _Actions2=babelHelpers.interopRequireDefault(_Actions); // 447 = ./src/Actions
-var _ActionConst=require(450                );var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst); // 450 = ./src/ActionConst
-var _DefaultRenderer=require(451                    );var _DefaultRenderer2=babelHelpers.interopRequireDefault(_DefaultRenderer); // 451 = ./src/DefaultRenderer
-var _TabbedView=require(454               );var _TabbedView2=babelHelpers.interopRequireDefault(_TabbedView); // 454 = ./src/TabbedView
-var _Modal=require(488          );var _Modal2=babelHelpers.interopRequireDefault(_Modal); // 488 = ./src/Modal
-var _NavBar=require(457           );var _NavBar2=babelHelpers.interopRequireDefault(_NavBar); // 457 = ./src/NavBar
-var _Reducer=require(489            );var _Reducer2=babelHelpers.interopRequireDefault(_Reducer); // 489 = ./src/Reducer
-var _Router=require(491           );var _Router2=babelHelpers.interopRequireDefault(_Router); // 491 = ./src/Router
-var _Scene=require(449          );var _Scene2=babelHelpers.interopRequireDefault(_Scene); // 449 = ./src/Scene
-var _Switch=require(492           );var _Switch2=babelHelpers.interopRequireDefault(_Switch); // 492 = ./src/Switch
-var _TabBar=require(452           );var _TabBar2=babelHelpers.interopRequireDefault(_TabBar); // 452 = ./src/TabBar
-var _State=require(490          );var _State2=babelHelpers.interopRequireDefault(_State); // 490 = ./src/State
-var _Util=require(448         );var _Util2=babelHelpers.interopRequireDefault(_Util);exports. // 448 = ./src/Util
+}, 446, null, "ReactLibrary/src/router.js");
+__d(/* react-native-router-flux/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Util=exports.getInitialState=exports.TabbedView=exports.TabBar=exports.Switch=exports.Scene=exports.Router=exports.Reducer=exports.NavBar=exports.Modal=exports.DefaultRenderer=exports.ActionConst=exports.Actions=undefined;var _Actions=require(448            );var _Actions2=babelHelpers.interopRequireDefault(_Actions); // 448 = ./src/Actions
+var _ActionConst=require(451                );var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst); // 451 = ./src/ActionConst
+var _DefaultRenderer=require(452                    );var _DefaultRenderer2=babelHelpers.interopRequireDefault(_DefaultRenderer); // 452 = ./src/DefaultRenderer
+var _TabbedView=require(455               );var _TabbedView2=babelHelpers.interopRequireDefault(_TabbedView); // 455 = ./src/TabbedView
+var _Modal=require(489          );var _Modal2=babelHelpers.interopRequireDefault(_Modal); // 489 = ./src/Modal
+var _NavBar=require(458           );var _NavBar2=babelHelpers.interopRequireDefault(_NavBar); // 458 = ./src/NavBar
+var _Reducer=require(490            );var _Reducer2=babelHelpers.interopRequireDefault(_Reducer); // 490 = ./src/Reducer
+var _Router=require(492           );var _Router2=babelHelpers.interopRequireDefault(_Router); // 492 = ./src/Router
+var _Scene=require(450          );var _Scene2=babelHelpers.interopRequireDefault(_Scene); // 450 = ./src/Scene
+var _Switch=require(493           );var _Switch2=babelHelpers.interopRequireDefault(_Switch); // 493 = ./src/Switch
+var _TabBar=require(453           );var _TabBar2=babelHelpers.interopRequireDefault(_TabBar); // 453 = ./src/TabBar
+var _State=require(491          );var _State2=babelHelpers.interopRequireDefault(_State); // 491 = ./src/State
+var _Util=require(449         );var _Util2=babelHelpers.interopRequireDefault(_Util);exports. // 449 = ./src/Util
 
 
 Actions=_Actions2.default;exports.
@@ -70796,7 +70820,7 @@ TabBar=_TabBar2.default;exports.
 TabbedView=_TabbedView2.default;exports.
 getInitialState=_State2.default;exports.
 Util=_Util2.default;
-}, 446, null, "react-native-router-flux/index.js");
+}, 447, null, "react-native-router-flux/index.js");
 __d(/* react-native-router-flux/src/Actions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.ActionsTest=exports.ActionMap=undefined;var _ActionMap;
 
 
@@ -70805,9 +70829,9 @@ __d(/* react-native-router-flux/src/Actions.js */function(global, require, modul
 
 
 
-var _Util=require(448     ); // 448 = ./Util
-var _Scene=require(449      );var _Scene2=babelHelpers.interopRequireDefault(_Scene); // 449 = ./Scene
-var _ActionConst=require(450            );var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst); // 450 = ./ActionConst
+var _Util=require(449     ); // 449 = ./Util
+var _Scene=require(450      );var _Scene2=babelHelpers.interopRequireDefault(_Scene); // 450 = ./Scene
+var _ActionConst=require(451            );var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst); // 451 = ./ActionConst
 
 var ActionMap=exports.ActionMap=(_ActionMap={
 jump:ActionConst.JUMP,
@@ -71006,7 +71030,7 @@ return refs;
 
 ActionsTest=Actions;exports.default=
 new Actions();
-}, 447, null, "react-native-router-flux/src/Actions.js");
+}, 448, null, "react-native-router-flux/src/Actions.js");
 __d(/* react-native-router-flux/src/Util.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.
 
 deepestExplicitValueForKey=deepestExplicitValueForKey;exports.
@@ -71047,7 +71071,7 @@ throw new Error('[react-native-router-flux] '+failDescription);
 {
 deepestExplicitValueForKey:deepestExplicitValueForKey,
 assert:assert};
-}, 448, null, "react-native-router-flux/src/Util.js");
+}, 449, null, "react-native-router-flux/src/Util.js");
 __d(/* react-native-router-flux/src/Scene.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});
 
 
@@ -71078,7 +71102,7 @@ var _reactNative=require(12            );var _class=function(_React$Component){b
 {
 return null;
 }}]);return _class;}(_react2.default.Component);_class.propTypes={tabBarStyle:_reactNative.View.propTypes.style,tabBarSelectedItemStyle:_reactNative.View.propTypes.style,tabBarIconContainerStyle:_reactNative.View.propTypes.style,tabBarShadowStyle:_reactNative.View.propTypes.style,tabSceneStyle:_reactNative.View.propTypes.style,tabStyle:_reactNative.View.propTypes.style,tabTitleStyle:_reactNative.Text.propTypes.style,tabSelectedTitleStyle:_reactNative.Text.propTypes.style,tabTitle:_react.PropTypes.string};exports.default=_class;
-}, 449, null, "react-native-router-flux/src/Scene.js");
+}, 450, null, "react-native-router-flux/src/Scene.js");
 __d(/* react-native-router-flux/src/ActionConst.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var JUMP=exports.JUMP='REACT_NATIVE_ROUTER_FLUX_JUMP';
 var PUSH=exports.PUSH='REACT_NATIVE_ROUTER_FLUX_PUSH';
 var PUSH_OR_POP=exports.PUSH_OR_POP='REACT_NATIVE_ROUTER_FLUX_PUSH_OR_POP';
@@ -71090,7 +71114,7 @@ var POP_TO=exports.POP_TO='REACT_NATIVE_ROUTER_FLUX_POP_TO';
 var REFRESH=exports.REFRESH='REACT_NATIVE_ROUTER_FLUX_REFRESH';
 var RESET=exports.RESET='REACT_NATIVE_ROUTER_FLUX_RESET';
 var FOCUS=exports.FOCUS='REACT_NATIVE_ROUTER_FLUX_FOCUS';
-}, 450, null, "react-native-router-flux/src/ActionConst.js");
+}, 451, null, "react-native-router-flux/src/ActionConst.js");
 __d(/* react-native-router-flux/src/DefaultRenderer.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});
 
 
@@ -71110,12 +71134,12 @@ var _reactNative=require(12            ); // 12 = react-native
 
 
 
-var _TabBar=require(452       );var _TabBar2=babelHelpers.interopRequireDefault(_TabBar); // 452 = ./TabBar
-var _NavBar=require(457       );var _NavBar2=babelHelpers.interopRequireDefault(_NavBar); // 457 = ./NavBar
-var _Actions=require(447        );var _Actions2=babelHelpers.interopRequireDefault(_Actions); // 447 = ./Actions
-var _Util=require(448     ); // 448 = ./Util
-var _reactNativeExperimentalNavigation=require(460                                   );var _reactNativeExperimentalNavigation2=babelHelpers.interopRequireDefault(_reactNativeExperimentalNavigation); // 460 = react-native-experimental-navigation
-var _reactAddonsPureRenderMixin=require(476                             );var _reactAddonsPureRenderMixin2=babelHelpers.interopRequireDefault(_reactAddonsPureRenderMixin); // 476 = react-addons-pure-render-mixin
+var _TabBar=require(453       );var _TabBar2=babelHelpers.interopRequireDefault(_TabBar); // 453 = ./TabBar
+var _NavBar=require(458       );var _NavBar2=babelHelpers.interopRequireDefault(_NavBar); // 458 = ./NavBar
+var _Actions=require(448        );var _Actions2=babelHelpers.interopRequireDefault(_Actions); // 448 = ./Actions
+var _Util=require(449     ); // 449 = ./Util
+var _reactNativeExperimentalNavigation=require(461                                   );var _reactNativeExperimentalNavigation2=babelHelpers.interopRequireDefault(_reactNativeExperimentalNavigation); // 461 = react-native-experimental-navigation
+var _reactAddonsPureRenderMixin=require(477                             );var _reactAddonsPureRenderMixin2=babelHelpers.interopRequireDefault(_reactAddonsPureRenderMixin); // 477 = react-addons-pure-render-mixin
 
 var SCREEN_WIDTH=_reactNative.Dimensions.get('window').width;var
 
@@ -71432,17 +71456,17 @@ optionals)));
 
 
 }}]);return DefaultRenderer;}(_react.Component);DefaultRenderer.propTypes={navigationState:_react.PropTypes.object,onNavigate:_react.PropTypes.func};DefaultRenderer.childContextTypes={navigationState:_react.PropTypes.any};exports.default=DefaultRenderer;
-}, 451, null, "react-native-router-flux/src/DefaultRenderer.js");
+}, 452, null, "react-native-router-flux/src/DefaultRenderer.js");
 __d(/* react-native-router-flux/src/TabBar.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 
 
 
-var _reactNativeTabs=require(453                );var _reactNativeTabs2=babelHelpers.interopRequireDefault(_reactNativeTabs); // 453 = react-native-tabs
-var _DefaultRenderer=require(451                );var _DefaultRenderer2=babelHelpers.interopRequireDefault(_DefaultRenderer); // 451 = ./DefaultRenderer
-var _Actions=require(447        );var _Actions2=babelHelpers.interopRequireDefault(_Actions); // 447 = ./Actions
-var _TabbedView=require(454           );var _TabbedView2=babelHelpers.interopRequireDefault(_TabbedView); // 454 = ./TabbedView
-var _Util=require(448     );var // 448 = ./Util
+var _reactNativeTabs=require(454                );var _reactNativeTabs2=babelHelpers.interopRequireDefault(_reactNativeTabs); // 454 = react-native-tabs
+var _DefaultRenderer=require(452                );var _DefaultRenderer2=babelHelpers.interopRequireDefault(_DefaultRenderer); // 452 = ./DefaultRenderer
+var _Actions=require(448        );var _Actions2=babelHelpers.interopRequireDefault(_Actions); // 448 = ./Actions
+var _TabbedView=require(455           );var _TabbedView2=babelHelpers.interopRequireDefault(_TabbedView); // 455 = ./TabbedView
+var _Util=require(449     );var // 449 = ./Util
 
 TabBar=function(_Component){babelHelpers.inherits(TabBar,_Component);
 
@@ -71529,7 +71553,7 @@ contents)));
 
 
 TabBar;
-}, 452, null, "react-native-router-flux/src/TabBar.js");
+}, 453, null, "react-native-router-flux/src/TabBar.js");
 __d(/* react-native-tabs/index.js */function(global, require, module, exports) {'use strict';
 
 var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
@@ -71599,10 +71623,10 @@ alignItems:'center'}});
 
 
 module.exports=Tabs;
-}, 453, null, "react-native-tabs/index.js");
+}, 454, null, "react-native-tabs/index.js");
 __d(/* react-native-router-flux/src/TabbedView.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
-var _reactStaticContainer=require(455                     );var _reactStaticContainer2=babelHelpers.interopRequireDefault(_reactStaticContainer); // 455 = react-static-container
+var _reactStaticContainer=require(456                     );var _reactStaticContainer2=babelHelpers.interopRequireDefault(_reactStaticContainer); // 456 = react-static-container
 
 var styles=_reactNative.StyleSheet.create({
 scene:{
@@ -71668,7 +71692,7 @@ scenes));
 
 
 TabbedView;
-}, 454, null, "react-native-router-flux/src/TabbedView.js");
+}, 455, null, "react-native-router-flux/src/TabbedView.js");
 __d(/* react-static-container/index.js */function(global, require, module, exports) {
 
 
@@ -71678,8 +71702,8 @@ __d(/* react-static-container/index.js */function(global, require, module, expor
 
 
 
-module.exports=require(456                          ); // 456 = ./lib/StaticContainer.react
-}, 455, null, "react-static-container/index.js");
+module.exports=require(457                          ); // 457 = ./lib/StaticContainer.react
+}, 456, null, "react-static-container/index.js");
 __d(/* react-static-container/lib/StaticContainer.react.js */function(global, require, module, exports) {
 
 
@@ -71750,7 +71774,7 @@ return StaticContainer;
 }(React.Component);
 
 module.exports=StaticContainer;
-}, 456, null, "react-static-container/lib/StaticContainer.react.js");
+}, 457, null, "react-static-container/lib/StaticContainer.react.js");
 __d(/* react-native-router-flux/src/NavBar.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});
 
 
@@ -71788,9 +71812,9 @@ var _reactNative=require(12            ); // 12 = react-native
 
 
 
-var _Actions=require(447        );var _Actions2=babelHelpers.interopRequireDefault(_Actions); // 447 = ./Actions
-var _menu_burger=require(458                );var _menu_burger2=babelHelpers.interopRequireDefault(_menu_burger); // 458 = ./menu_burger.png
-var _back_chevron=require(459                 );var _back_chevron2=babelHelpers.interopRequireDefault(_back_chevron); // 459 = ./back_chevron.png
+var _Actions=require(448        );var _Actions2=babelHelpers.interopRequireDefault(_Actions); // 448 = ./Actions
+var _menu_burger=require(459                );var _menu_burger2=babelHelpers.interopRequireDefault(_menu_burger); // 459 = ./menu_burger.png
+var _back_chevron=require(460                 );var _back_chevron2=babelHelpers.interopRequireDefault(_back_chevron); // 460 = ./back_chevron.png
 
 var styles=_reactNative.StyleSheet.create({
 title:{
@@ -72272,11 +72296,11 @@ NavBar.contextTypes=contextTypes;
 NavBar.defaultProps=defaultProps;exports.default=
 
 NavBar;
-}, 457, null, "react-native-router-flux/src/NavBar.js");
+}, 458, null, "react-native-router-flux/src/NavBar.js");
 __d(/* react-native-router-flux/src/menu_burger.png */function(global, require, module, exports) {module.exports = require(171                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/node_modules/react-native-router-flux/src","width":26,"height":42,"scales":[1],"hash":"315b6bc9518b83448be6761e6cc5cb7e","name":"menu_burger","type":"png"}); // 171 = react-native/Libraries/Image/AssetRegistry
-}, 458, null, "react-native-router-flux/src/menu_burger.png");
+}, 459, null, "react-native-router-flux/src/menu_burger.png");
 __d(/* react-native-router-flux/src/back_chevron.png */function(global, require, module, exports) {module.exports = require(171                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/node_modules/react-native-router-flux/src","width":26,"height":42,"scales":[1],"hash":"fb13fafd1da1ad19e708c53cfad2e514","name":"back_chevron","type":"png"}); // 171 = react-native/Libraries/Image/AssetRegistry
-}, 459, null, "react-native-router-flux/src/back_chevron.png");
+}, 460, null, "react-native-router-flux/src/back_chevron.png");
 __d(/* react-native-experimental-navigation/NavigationExperimental.js */function(global, require, module, exports) {
 
 
@@ -72290,17 +72314,17 @@ __d(/* react-native-experimental-navigation/NavigationExperimental.js */function
 
 'use strict';
 
-var NavigationAnimatedView=require(461                       ); // 461 = ./NavigationAnimatedView
-var NavigationCard=require(467               ); // 467 = ./NavigationCard
-var NavigationCardStack=require(477                    ); // 477 = ./NavigationCardStack
-var NavigationContainer=require(462                    ); // 462 = ./NavigationContainer
-var NavigationHeader=require(478                 ); // 478 = ./NavigationHeader
+var NavigationAnimatedView=require(462                       ); // 462 = ./NavigationAnimatedView
+var NavigationCard=require(468               ); // 468 = ./NavigationCard
+var NavigationCardStack=require(478                    ); // 478 = ./NavigationCardStack
+var NavigationContainer=require(463                    ); // 463 = ./NavigationContainer
+var NavigationHeader=require(479                 ); // 479 = ./NavigationHeader
 var NavigationLegacyNavigator=null;
-var NavigationReducer=require(483                  ); // 483 = ./NavigationReducer
-var NavigationRootContainer=require(463                        ); // 463 = ./NavigationRootContainer
-var NavigationStateUtils=require(465                     ); // 465 = ./NavigationStateUtils
-var NavigationView=require(487               ); // 487 = ./NavigationView
-var NavigationPropTypes=require(464                    ); // 464 = ./NavigationPropTypes
+var NavigationReducer=require(484                  ); // 484 = ./NavigationReducer
+var NavigationRootContainer=require(464                        ); // 464 = ./NavigationRootContainer
+var NavigationStateUtils=require(466                     ); // 466 = ./NavigationStateUtils
+var NavigationView=require(488               ); // 488 = ./NavigationView
+var NavigationPropTypes=require(465                    ); // 465 = ./NavigationPropTypes
 
 var NavigationExperimental={
 
@@ -72325,7 +72349,7 @@ PropTypes:NavigationPropTypes};
 
 
 module.exports=NavigationExperimental;
-}, 460, null, "react-native-experimental-navigation/NavigationExperimental.js");
+}, 461, null, "react-native-experimental-navigation/NavigationExperimental.js");
 __d(/* react-native-experimental-navigation/NavigationAnimatedView.js */function(global, require, module, exports) {
 
 
@@ -72340,9 +72364,9 @@ __d(/* react-native-experimental-navigation/NavigationAnimatedView.js */function
 'use strict';
 
 var Animated=require(12            ).Animated; // 12 = react-native
-var NavigationContainer=require(462                    ); // 462 = ./NavigationContainer
-var NavigationPropTypes=require(464                    ); // 464 = ./NavigationPropTypes
-var NavigationScenesReducer=require(466                        ); // 466 = ./NavigationScenesReducer
+var NavigationContainer=require(463                    ); // 463 = ./NavigationContainer
+var NavigationPropTypes=require(465                    ); // 465 = ./NavigationPropTypes
+var NavigationScenesReducer=require(467                        ); // 467 = ./NavigationScenesReducer
 var React=require(279    ); // 279 = react
 var StyleSheet=require(12            ).StyleSheet; // 12 = react-native
 var View=require(12            ).View;var // 12 = react-native
@@ -72572,7 +72596,7 @@ flex:1}});
 NavigationAnimatedView=NavigationContainer.create(NavigationAnimatedView);
 
 module.exports=NavigationAnimatedView;
-}, 461, null, "react-native-experimental-navigation/NavigationAnimatedView.js");
+}, 462, null, "react-native-experimental-navigation/NavigationAnimatedView.js");
 __d(/* react-native-experimental-navigation/NavigationContainer.js */function(global, require, module, exports) {
 
 
@@ -72587,7 +72611,7 @@ __d(/* react-native-experimental-navigation/NavigationContainer.js */function(gl
 'use strict';
 
 var React=require(279    ); // 279 = react
-var NavigationRootContainer=require(463                        ); // 463 = ./NavigationRootContainer
+var NavigationRootContainer=require(464                        ); // 464 = ./NavigationRootContainer
 
 function createNavigationContainer(
 Component)
@@ -72626,7 +72650,7 @@ RootContainer:NavigationRootContainer};
 
 
 module.exports=NavigationContainer;
-}, 462, null, "react-native-experimental-navigation/NavigationContainer.js");
+}, 463, null, "react-native-experimental-navigation/NavigationContainer.js");
 __d(/* react-native-experimental-navigation/NavigationRootContainer.js */function(global, require, module, exports) {
 
 
@@ -72642,8 +72666,8 @@ __d(/* react-native-experimental-navigation/NavigationRootContainer.js */functio
 
 var AsyncStorage=require(12            ).AsyncStorage; // 12 = react-native
 var Linking=require(12            ).Linking; // 12 = react-native
-var NavigationPropTypes=require(464                    ); // 464 = ./NavigationPropTypes
-var NavigationStateUtils=require(465                     ); // 465 = ./NavigationStateUtils
+var NavigationPropTypes=require(465                    ); // 465 = ./NavigationPropTypes
+var NavigationStateUtils=require(466                     ); // 466 = ./NavigationStateUtils
 var Platform=require(12            ).Platform; // 12 = react-native
 var React=require(279    ); // 279 = react
 
@@ -72818,7 +72842,7 @@ return navigation;
 
 
 module.exports=NavigationRootContainer;
-}, 463, null, "react-native-experimental-navigation/NavigationRootContainer.js");
+}, 464, null, "react-native-experimental-navigation/NavigationRootContainer.js");
 __d(/* react-native-experimental-navigation/NavigationPropTypes.js */function(global, require, module, exports) {
 
 
@@ -72942,7 +72966,7 @@ navigationParentState:navigationParentState,
 navigationState:navigationState,
 panHandlers:panHandlers,
 SceneRenderer:SceneRenderer};
-}, 464, null, "react-native-experimental-navigation/NavigationPropTypes.js");
+}, 465, null, "react-native-experimental-navigation/NavigationPropTypes.js");
 __d(/* react-native-experimental-navigation/NavigationStateUtils.js */function(global, require, module, exports) {
 
 
@@ -73135,7 +73159,7 @@ replaceAtIndex:replaceAtIndex};
 
 
 module.exports=NavigationStateUtils;
-}, 465, null, "react-native-experimental-navigation/NavigationStateUtils.js");
+}, 466, null, "react-native-experimental-navigation/NavigationStateUtils.js");
 __d(/* react-native-experimental-navigation/NavigationScenesReducer.js */function(global, require, module, exports) {
 
 
@@ -73285,7 +73309,7 @@ return nextScenes.sort(compareScenes);
 }
 
 module.exports=NavigationScenesReducer;
-}, 466, null, "react-native-experimental-navigation/NavigationScenesReducer.js");
+}, 467, null, "react-native-experimental-navigation/NavigationScenesReducer.js");
 __d(/* react-native-experimental-navigation/NavigationCard.js */function(global, require, module, exports) {
 
 
@@ -73321,15 +73345,15 @@ __d(/* react-native-experimental-navigation/NavigationCard.js */function(global,
 'use strict';
 
 var Animated=require(12            ).Animated; // 12 = react-native
-var NavigationCardStackPanResponder=require(468                                ); // 468 = ./NavigationCardStackPanResponder
-var NavigationCardStackStyleInterpolator=require(471                                     ); // 471 = ./NavigationCardStackStyleInterpolator
-var NavigationContainer=require(462                    ); // 462 = ./NavigationContainer
-var NavigationPagerPanResponder=require(472                            ); // 472 = ./NavigationPagerPanResponder
-var NavigationPagerStyleInterpolator=require(473                                 ); // 473 = ./NavigationPagerStyleInterpolator
-var NavigationPointerEventsContainer=require(474                                 ); // 474 = ./NavigationPointerEventsContainer
-var NavigationPropTypes=require(464                    ); // 464 = ./NavigationPropTypes
+var NavigationCardStackPanResponder=require(469                                ); // 469 = ./NavigationCardStackPanResponder
+var NavigationCardStackStyleInterpolator=require(472                                     ); // 472 = ./NavigationCardStackStyleInterpolator
+var NavigationContainer=require(463                    ); // 463 = ./NavigationContainer
+var NavigationPagerPanResponder=require(473                            ); // 473 = ./NavigationPagerPanResponder
+var NavigationPagerStyleInterpolator=require(474                                 ); // 474 = ./NavigationPagerStyleInterpolator
+var NavigationPointerEventsContainer=require(475                                 ); // 475 = ./NavigationPointerEventsContainer
+var NavigationPropTypes=require(465                    ); // 465 = ./NavigationPropTypes
 var React=require(279    ); // 279 = react
-var ReactComponentWithPureRenderMixin=require(476                             ); // 476 = react-addons-pure-render-mixin
+var ReactComponentWithPureRenderMixin=require(477                             ); // 477 = react-addons-pure-render-mixin
 var StyleSheet=require(12            ).StyleSheet; // 12 = react-native
 var View=require(12            ).View;var // 12 = react-native
 
@@ -73449,7 +73473,7 @@ NavigationCard.PagerPanResponder=NavigationPagerPanResponder;
 NavigationCard.PagerStyleInterpolator=NavigationPagerStyleInterpolator;
 
 module.exports=NavigationCard;
-}, 467, null, "react-native-experimental-navigation/NavigationCard.js");
+}, 468, null, "react-native-experimental-navigation/NavigationCard.js");
 __d(/* react-native-experimental-navigation/NavigationCardStackPanResponder.js */function(global, require, module, exports) {
 
 
@@ -73465,9 +73489,9 @@ __d(/* react-native-experimental-navigation/NavigationCardStackPanResponder.js *
 'use strict';
 
 var Animated=require(12            ).Animated; // 12 = react-native
-var NavigationAbstractPanResponder=require(469                               ); // 469 = ./NavigationAbstractPanResponder
+var NavigationAbstractPanResponder=require(470                               ); // 470 = ./NavigationAbstractPanResponder
 
-var clamp=require(470    ); // 470 = clamp
+var clamp=require(471    ); // 471 = clamp
 
 
 
@@ -73690,7 +73714,7 @@ Directions:Directions,
 
 forHorizontal:forHorizontal,
 forVertical:forVertical};
-}, 468, null, "react-native-experimental-navigation/NavigationCardStackPanResponder.js");
+}, 469, null, "react-native-experimental-navigation/NavigationCardStackPanResponder.js");
 __d(/* react-native-experimental-navigation/NavigationAbstractPanResponder.js */function(global, require, module, exports) {
 
 
@@ -73747,7 +73771,7 @@ this.panHandlers=PanResponder.create(config).panHandlers;
 
 
 module.exports=NavigationAbstractPanResponder;
-}, 469, null, "react-native-experimental-navigation/NavigationAbstractPanResponder.js");
+}, 470, null, "react-native-experimental-navigation/NavigationAbstractPanResponder.js");
 __d(/* clamp/index.js */function(global, require, module, exports) {module.exports=clamp;
 
 function clamp(value,min,max){
@@ -73755,7 +73779,7 @@ return min<max?
 value<min?min:value>max?max:value:
 value<max?max:value>min?min:value;
 }
-}, 470, null, "clamp/index.js");
+}, 471, null, "clamp/index.js");
 __d(/* react-native-experimental-navigation/NavigationCardStackStyleInterpolator.js */function(global, require, module, exports) {
 
 
@@ -73916,7 +73940,7 @@ transform:[
 module.exports={
 forHorizontal:forHorizontal,
 forVertical:forVertical};
-}, 471, null, "react-native-experimental-navigation/NavigationCardStackStyleInterpolator.js");
+}, 472, null, "react-native-experimental-navigation/NavigationCardStackStyleInterpolator.js");
 __d(/* react-native-experimental-navigation/NavigationPagerPanResponder.js */function(global, require, module, exports) {
 
 
@@ -73932,10 +73956,10 @@ __d(/* react-native-experimental-navigation/NavigationPagerPanResponder.js */fun
 'use strict';
 
 var Animated=require(12            ).Animated; // 12 = react-native
-var NavigationAbstractPanResponder=require(469                               ); // 469 = ./NavigationAbstractPanResponder
-var NavigationCardStackPanResponder=require(468                                ); // 468 = ./NavigationCardStackPanResponder
+var NavigationAbstractPanResponder=require(470                               ); // 470 = ./NavigationAbstractPanResponder
+var NavigationCardStackPanResponder=require(469                                ); // 469 = ./NavigationCardStackPanResponder
 
-var clamp=require(470    );var // 470 = clamp
+var clamp=require(471    );var // 471 = clamp
 
 
 
@@ -74138,7 +74162,7 @@ return createPanHandlers(Directions.HORIZONTAL,props);
 module.exports={
 Actions:Actions,
 forHorizontal:forHorizontal};
-}, 472, null, "react-native-experimental-navigation/NavigationPagerPanResponder.js");
+}, 473, null, "react-native-experimental-navigation/NavigationPagerPanResponder.js");
 __d(/* react-native-experimental-navigation/NavigationPagerStyleInterpolator.js */function(global, require, module, exports) {
 
 
@@ -74249,7 +74273,7 @@ transform:[
 
 module.exports={
 forHorizontal:forHorizontal};
-}, 473, null, "react-native-experimental-navigation/NavigationPagerStyleInterpolator.js");
+}, 474, null, "react-native-experimental-navigation/NavigationPagerStyleInterpolator.js");
 __d(/* react-native-experimental-navigation/NavigationPointerEventsContainer.js */function(global, require, module, exports) {
 
 
@@ -74285,7 +74309,7 @@ __d(/* react-native-experimental-navigation/NavigationPointerEventsContainer.js 
 'use strict';
 
 var React=require(279    ); // 279 = react
-var NavigationAnimatedValueSubscription=require(475                                    ); // 475 = ./NavigationAnimatedValueSubscription
+var NavigationAnimatedValueSubscription=require(476                                    ); // 476 = ./NavigationAnimatedValueSubscription
 
 var invariant=require(24                  ); // 24 = fbjs/lib/invariant
 
@@ -74407,7 +74431,7 @@ return Container;
 
 module.exports={
 create:create};
-}, 474, null, "react-native-experimental-navigation/NavigationPointerEventsContainer.js");
+}, 475, null, "react-native-experimental-navigation/NavigationPointerEventsContainer.js");
 __d(/* react-native-experimental-navigation/NavigationAnimatedValueSubscription.js */function(global, require, module, exports) {
 
 
@@ -74456,9 +74480,9 @@ this._value.removeListener(this._token);
 
 
 module.exports=NavigationAnimatedValueSubscription;
-}, 475, null, "react-native-experimental-navigation/NavigationAnimatedValueSubscription.js");
+}, 476, null, "react-native-experimental-navigation/NavigationAnimatedValueSubscription.js");
 __d(/* react-addons-pure-render-mixin/index.js */function(global, require, module, exports) {module.exports=require(386                                          ); // 386 = react/lib/ReactComponentWithPureRenderMixin
-}, 476, null, "react-addons-pure-render-mixin/index.js");
+}, 477, null, "react-addons-pure-render-mixin/index.js");
 __d(/* react-native-experimental-navigation/NavigationCardStack.js */function(global, require, module, exports) {
 
 
@@ -74493,14 +74517,14 @@ __d(/* react-native-experimental-navigation/NavigationCardStack.js */function(gl
 
 'use strict';
 
-var NavigationAnimatedView=require(461                       ); // 461 = ./NavigationAnimatedView
-var NavigationCard=require(467               ); // 467 = ./NavigationCard
-var NavigationCardStackStyleInterpolator=require(471                                     ); // 471 = ./NavigationCardStackStyleInterpolator
-var NavigationContainer=require(462                    ); // 462 = ./NavigationContainer
-var NavigationCardStackPanResponder=require(468                                ); // 468 = ./NavigationCardStackPanResponder
-var NavigationPropTypes=require(464                    ); // 464 = ./NavigationPropTypes
+var NavigationAnimatedView=require(462                       ); // 462 = ./NavigationAnimatedView
+var NavigationCard=require(468               ); // 468 = ./NavigationCard
+var NavigationCardStackStyleInterpolator=require(472                                     ); // 472 = ./NavigationCardStackStyleInterpolator
+var NavigationContainer=require(463                    ); // 463 = ./NavigationContainer
+var NavigationCardStackPanResponder=require(469                                ); // 469 = ./NavigationCardStackPanResponder
+var NavigationPropTypes=require(465                    ); // 465 = ./NavigationPropTypes
 var React=require(279    ); // 279 = react
-var ReactComponentWithPureRenderMixin=require(476                             ); // 476 = react-addons-pure-render-mixin
+var ReactComponentWithPureRenderMixin=require(477                             ); // 477 = react-addons-pure-render-mixin
 var StyleSheet=require(12            ).StyleSheet; // 12 = react-native
 
 var emptyFunction=require(14                      );var // 14 = fbjs/lib/emptyFunction
@@ -74617,7 +74641,7 @@ flex:1}});
 
 
 module.exports=NavigationContainer.create(NavigationCardStack);
-}, 477, null, "react-native-experimental-navigation/NavigationCardStack.js");
+}, 478, null, "react-native-experimental-navigation/NavigationCardStack.js");
 __d(/* react-native-experimental-navigation/NavigationHeader.js */function(global, require, module, exports) {
 
 
@@ -74654,12 +74678,12 @@ __d(/* react-native-experimental-navigation/NavigationHeader.js */function(globa
 
 var React=require(279    ); // 279 = react
 var ReactNative=require(12            ); // 12 = react-native
-var NavigationContainer=require(462                    ); // 462 = ./NavigationContainer
-var NavigationHeaderTitle=require(479                      ); // 479 = ./NavigationHeaderTitle
-var NavigationHeaderBackButton=require(480                           ); // 480 = ./NavigationHeaderBackButton
-var NavigationPropTypes=require(464                    ); // 464 = ./NavigationPropTypes
-var NavigationHeaderStyleInterpolator=require(482                                  ); // 482 = ./NavigationHeaderStyleInterpolator
-var ReactComponentWithPureRenderMixin=require(476                             );var // 476 = react-addons-pure-render-mixin
+var NavigationContainer=require(463                    ); // 463 = ./NavigationContainer
+var NavigationHeaderTitle=require(480                      ); // 480 = ./NavigationHeaderTitle
+var NavigationHeaderBackButton=require(481                           ); // 481 = ./NavigationHeaderBackButton
+var NavigationPropTypes=require(465                    ); // 465 = ./NavigationPropTypes
+var NavigationHeaderStyleInterpolator=require(483                                  ); // 483 = ./NavigationHeaderStyleInterpolator
+var ReactComponentWithPureRenderMixin=require(477                             );var // 477 = react-addons-pure-render-mixin
 
 
 Animated=
@@ -74871,7 +74895,7 @@ NavigationHeaderContainer.Title=NavigationHeaderTitle;
 NavigationHeaderContainer.BackButton=NavigationHeaderBackButton;
 
 module.exports=NavigationHeaderContainer;
-}, 478, null, "react-native-experimental-navigation/NavigationHeader.js");
+}, 479, null, "react-native-experimental-navigation/NavigationHeader.js");
 __d(/* react-native-experimental-navigation/NavigationHeaderTitle.js */function(global, require, module, exports) {
 
 
@@ -74948,7 +74972,7 @@ textStyle:Text.propTypes.style};
 
 
 module.exports=NavigationHeaderTitle;
-}, 479, null, "react-native-experimental-navigation/NavigationHeaderTitle.js");
+}, 480, null, "react-native-experimental-navigation/NavigationHeaderTitle.js");
 __d(/* react-native-experimental-navigation/NavigationHeaderBackButton.js */function(global, require, module, exports) {
 
 
@@ -74969,8 +74993,8 @@ __d(/* react-native-experimental-navigation/NavigationHeaderBackButton.js */func
 
 var React=require(279    ); // 279 = react
 var ReactNative=require(12            ); // 12 = react-native
-var NavigationContainer=require(462                    ); // 462 = ./NavigationContainer
-var NavigationRootContainer=require(463                        );var // 463 = ./NavigationRootContainer
+var NavigationContainer=require(463                    ); // 463 = ./NavigationContainer
+var NavigationRootContainer=require(464                        );var // 464 = ./NavigationRootContainer
 
 
 Image=
@@ -74985,7 +75009,7 @@ ReactNative.Image,Platform=ReactNative.Platform,StyleSheet=ReactNative.StyleShee
 
 var NavigationHeaderBackButton=function NavigationHeaderBackButton(props){return(
 React.createElement(TouchableOpacity,{style:styles.buttonContainer,onPress:function onPress(){return props.onNavigate(NavigationRootContainer.getBackAction());}},
-React.createElement(Image,{style:styles.button,source:require(481                )})));}; // 481 = ./assets/back.png
+React.createElement(Image,{style:styles.button,source:require(482                )})));}; // 482 = ./assets/back.png
 
 
 
@@ -75009,9 +75033,9 @@ resizeMode:'contain'}});
 
 
 module.exports=NavigationContainer.create(NavigationHeaderBackButton);
-}, 480, null, "react-native-experimental-navigation/NavigationHeaderBackButton.js");
+}, 481, null, "react-native-experimental-navigation/NavigationHeaderBackButton.js");
 __d(/* react-native-experimental-navigation/assets/back.png */function(global, require, module, exports) {module.exports = require(171                                         ).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/node_modules/react-native-experimental-navigation/assets","width":24,"height":24,"scales":[1,1.5,2,3,4],"hash":"40cb2e3978cf9a18d3566dab9deded67","name":"back","type":"png"}); // 171 = react-native/Libraries/Image/AssetRegistry
-}, 481, null, "react-native-experimental-navigation/assets/back.png");
+}, 482, null, "react-native-experimental-navigation/assets/back.png");
 __d(/* react-native-experimental-navigation/NavigationHeaderStyleInterpolator.js */function(global, require, module, exports) {
 
 
@@ -75107,7 +75131,7 @@ module.exports={
 forCenter:forCenter,
 forLeft:forLeft,
 forRight:forRight};
-}, 482, null, "react-native-experimental-navigation/NavigationHeaderStyleInterpolator.js");
+}, 483, null, "react-native-experimental-navigation/NavigationHeaderStyleInterpolator.js");
 __d(/* react-native-experimental-navigation/NavigationReducer.js */function(global, require, module, exports) {
 
 
@@ -75121,9 +75145,9 @@ __d(/* react-native-experimental-navigation/NavigationReducer.js */function(glob
 
 'use strict';
 
-var NavigationFindReducer=require(484                      ); // 484 = ./NavigationFindReducer
-var NavigationStackReducer=require(485                       ); // 485 = ./NavigationStackReducer
-var NavigationTabsReducer=require(486                      ); // 486 = ./NavigationTabsReducer
+var NavigationFindReducer=require(485                      ); // 485 = ./NavigationFindReducer
+var NavigationStackReducer=require(486                       ); // 486 = ./NavigationStackReducer
+var NavigationTabsReducer=require(487                      ); // 487 = ./NavigationTabsReducer
 
 var NavigationReducer={
 FindReducer:NavigationFindReducer,
@@ -75132,7 +75156,7 @@ TabsReducer:NavigationTabsReducer};
 
 
 module.exports=NavigationReducer;
-}, 483, null, "react-native-experimental-navigation/NavigationReducer.js");
+}, 484, null, "react-native-experimental-navigation/NavigationReducer.js");
 __d(/* react-native-experimental-navigation/NavigationFindReducer.js */function(global, require, module, exports) {
 
 
@@ -75174,7 +75198,7 @@ return lastState||defaultState;
 }
 
 module.exports=NavigationFindReducer;
-}, 484, null, "react-native-experimental-navigation/NavigationFindReducer.js");
+}, 485, null, "react-native-experimental-navigation/NavigationFindReducer.js");
 __d(/* react-native-experimental-navigation/NavigationStackReducer.js */function(global, require, module, exports) {
 
 
@@ -75188,7 +75212,7 @@ __d(/* react-native-experimental-navigation/NavigationStackReducer.js */function
 
 'use strict';
 
-var NavigationStateUtils=require(465                     ); // 465 = ./NavigationStateUtils
+var NavigationStateUtils=require(466                     ); // 466 = ./NavigationStateUtils
 
 
 
@@ -75285,7 +75309,7 @@ return lastParentState;
 }
 
 module.exports=NavigationStackReducer;
-}, 485, null, "react-native-experimental-navigation/NavigationStackReducer.js");
+}, 486, null, "react-native-experimental-navigation/NavigationStackReducer.js");
 __d(/* react-native-experimental-navigation/NavigationTabsReducer.js */function(global, require, module, exports) {
 
 
@@ -75299,8 +75323,8 @@ __d(/* react-native-experimental-navigation/NavigationTabsReducer.js */function(
 
 'use strict';
 
-var NavigationFindReducer=require(484                      ); // 484 = ./NavigationFindReducer
-var NavigationStateUtils=require(465                     ); // 465 = ./NavigationStateUtils
+var NavigationFindReducer=require(485                      ); // 485 = ./NavigationFindReducer
+var NavigationStateUtils=require(466                     ); // 466 = ./NavigationStateUtils
 
 
 
@@ -75389,7 +75413,7 @@ return findReducer(lastParentNavState,action);
 NavigationTabsReducer.JumpToAction=NavigationTabsJumpToAction;
 
 module.exports=NavigationTabsReducer;
-}, 486, null, "react-native-experimental-navigation/NavigationTabsReducer.js");
+}, 487, null, "react-native-experimental-navigation/NavigationTabsReducer.js");
 __d(/* react-native-experimental-navigation/NavigationView.js */function(global, require, module, exports) {
 
 
@@ -75404,12 +75428,12 @@ __d(/* react-native-experimental-navigation/NavigationView.js */function(global,
 'use strict';
 
 var Animated=require(12            ).Animated; // 12 = react-native
-var NavigationContainer=require(462                    ); // 462 = ./NavigationContainer
+var NavigationContainer=require(463                    ); // 463 = ./NavigationContainer
 var React=require(279    ); // 279 = react
 var StyleSheet=require(12            ).StyleSheet; // 12 = react-native
 var View=require(12            ).View; // 12 = react-native
-var NavigationScenesReducer=require(466                        ); // 466 = ./NavigationScenesReducer
-var ReactComponentWithPureRenderMixin=require(476                             );var // 476 = react-addons-pure-render-mixin
+var NavigationScenesReducer=require(467                        ); // 467 = ./NavigationScenesReducer
+var ReactComponentWithPureRenderMixin=require(477                             );var // 477 = react-addons-pure-render-mixin
 
 
 
@@ -75569,7 +75593,7 @@ top:0}});
 
 
 module.exports=NavigationContainer.create(NavigationView);
-}, 487, null, "react-native-experimental-navigation/NavigationView.js");
+}, 488, null, "react-native-experimental-navigation/NavigationView.js");
 __d(/* react-native-router-flux/src/Modal.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -75585,7 +75609,7 @@ __d(/* react-native-router-flux/src/Modal.js */function(global, require, module,
 
 
 
-Modal;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(12            );var _DefaultRenderer=require(451                );var _DefaultRenderer2=babelHelpers.interopRequireDefault(_DefaultRenderer);var propTypes={navigationState:_react.PropTypes.shape({children:_react.PropTypes.array}),onNavigate:_react.PropTypes.func};function Modal(props){ // 451 = ./DefaultRenderer // 12 = react-native // 279 = react
+Modal;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(12            );var _DefaultRenderer=require(452                );var _DefaultRenderer2=babelHelpers.interopRequireDefault(_DefaultRenderer);var propTypes={navigationState:_react.PropTypes.shape({children:_react.PropTypes.array}),onNavigate:_react.PropTypes.func};function Modal(props){ // 452 = ./DefaultRenderer // 12 = react-native // 279 = react
 var children=props.navigationState.children;
 var state=children[0];
 
@@ -75610,7 +75634,7 @@ return null;
 }
 
 Modal.propTypes=propTypes;
-}, 488, null, "react-native-router-flux/src/Modal.js");
+}, 489, null, "react-native-router-flux/src/Modal.js");
 __d(/* react-native-router-flux/src/Reducer.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.
 
 
@@ -75877,7 +75901,7 @@ findElement=findElement;exports.
 
 
 
-getCurrent=getCurrent;var _ActionConst=require(450            );var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst);var _Actions=require(447        );var _Util=require(448     );var _State=require(490      );var _reactNative=require(12            );function checkPropertiesEqual(action,lastAction){var isEqual=true;for(var _iterator=Object.keys(action),_isArray=Array.isArray(_iterator),_i=0,_iterator=_isArray?_iterator:_iterator[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref;if(_isArray){if(_i>=_iterator.length)break;_ref=_iterator[_i++];}else{_i=_iterator.next();if(_i.done)break;_ref=_i.value;}var key=_ref;if(['key','type','parent'].indexOf(key)===-1){if(action[key]!==lastAction[key]){isEqual=false;}}}return isEqual;}function resetHistoryStack(child){var newChild=child;newChild.index=0;child.children.map(function(el,i){if(el.initial){newChild.index=i;if(!newChild.tabs){newChild.children=[el];}}if(el.children){resetHistoryStack(el);}return newChild;});}function refreshTopChild(children,refresh){if(refresh){var topChild=children[children.length-1];return[].concat(babelHelpers.toConsumableArray(children.slice(0,-1)),[babelHelpers.extends({},topChild,refresh)]);}return children;}function inject(state,action,props,scenes){var condition=_Actions.ActionMap[action.type]===ActionConst.REFRESH?state.key===props.key||state.sceneKey===action.key:state.sceneKey===props.parent;if(!condition){if(state.children){var res=state.children.map(function(el){return inject(el,action,props,scenes);});var changed=false;var changedIndex=-1;for(var i=0;i<res.length;i++){if(res[i]!==state.children[i]){changed=true;changedIndex=i;break;}}return changed?babelHelpers.extends({},state,{children:res,index:changedIndex}):state;}return state;}var ind=void 0;switch(_Actions.ActionMap[action.type]){case ActionConst.POP_TO:{var targetIndex=action.targetIndex;return babelHelpers.extends({},state,{index:targetIndex,children:refreshTopChild(state.children.slice(0,targetIndex+1),action.refresh)});}case ActionConst.BACK:case ActionConst.BACK_ACTION:{(0,_Util.assert)(!state.tabs,'pop() operation cannot be run on tab bar (tabs=true)');if(_reactNative.Platform.OS==='android'){(0,_Util.assert)(state.index>0,'You are already in the root scene.');}if(state.index===0){return state;}var popNum=1;if(action.popNum){(0,_Util.assert)(typeof action.popNum==='number','The data is the number of scenes you want to pop, it must be Number');popNum=action.popNum;(0,_Util.assert)(popNum%1===0,'The data is the number of scenes you want to pop, it must be integer.');(0,_Util.assert)(popNum>1,'The data is the number of scenes you want to pop, it must be bigger than 1.');(0,_Util.assert)(popNum<=state.index,'The data is the number of scenes you want to pop, '+"it must be smaller than scenes stack's length.");}return babelHelpers.extends({},state,{index:state.index-popNum,from:state.children[state.children.length-popNum],children:refreshTopChild(state.children.slice(0,-1*popNum),action.refresh)});}case ActionConst.POP_AND_REPLACE:{(0,_Util.assert)(!state.tabs,'pop() operation cannot be run on tab bar (tabs=true)');(0,_Util.assert)(state.index>0,'You are already in the root scene.');var _popNum=1;if(action.popNum){(0,_Util.assert)(typeof action.popNum==='number','The data is the number of scenes you want to pop, it must be Number');_popNum=action.popNum;(0,_Util.assert)(_popNum%1===0,'The data is the number of scenes you want to pop, it must be integer.');(0,_Util.assert)(_popNum>1,'The data is the number of scenes you want to pop, it must be bigger than 1.');(0,_Util.assert)(_popNum<=state.index,'The data is the number of scenes you want to pop, '+"it must be smaller than scenes stack's length.");}state=babelHelpers.extends({},state,{index:state.index-_popNum,from:state.children[state.children.length-_popNum],children:state.children.slice(0,-1*_popNum)});if(state.children[state.index].sceneKey===action.key){return state;}var newAction=babelHelpers.extends({duration:0},action);delete newAction.popNum;var newProps=babelHelpers.extends({},props);delete newProps.popNum;state.children[state.children.length-1]=(0,_State.getInitialState)(newProps,scenes,state.index,newAction);return babelHelpers.extends({},state,{children:state.children});}case ActionConst.REFRESH:return props.base?babelHelpers.extends({navBar:state.navBar},scenes.rootProps,props,{key:state.key,from:null}):babelHelpers.extends({},state,props,{key:state.key,from:null});case ActionConst.PUSH_OR_POP:ind=state.children.findIndex(function(el){return el.sceneKey===action.key;});if(ind!==-1){return babelHelpers.extends({},state,{index:ind,from:state.children[state.index],children:refreshTopChild(state.children.slice(0,ind+1),action.refresh)});}return babelHelpers.extends({},state,{index:state.index+1,from:null,children:[].concat(babelHelpers.toConsumableArray(state.children),[(0,_State.getInitialState)(props,scenes,state.index+1,action)])});case ActionConst.PUSH:if(state.children[state.index].sceneKey===action.key&&!props.clone&&checkPropertiesEqual(action,state.children[state.index])){return state;}return babelHelpers.extends({},state,{index:state.index+1,from:null,children:[].concat(babelHelpers.toConsumableArray(state.children),[(0,_State.getInitialState)(props,scenes,state.index+1,action)])});case ActionConst.JUMP:{(0,_Util.assert)(state.tabs,'Parent='+state.key+' is not tab bar, jump action is not valid');ind=-1;state.children.forEach(function(c,i){if(c.sceneKey===action.key){ind=i;}});(0,_Util.assert)(ind!==-1,'Cannot find route with key='+action.key+' for parent='+state.key);if(action.unmountScenes){resetHistoryStack(state.children[ind]);}return babelHelpers.extends({},state,{index:ind});}case ActionConst.REPLACE:if(state.children[state.index].sceneKey===action.key){return state;}state.children[state.children.length-1]=(0,_State.getInitialState)(props,scenes,state.index,action);return babelHelpers.extends({},state,{children:state.children});case ActionConst.RESET:if(state.children[state.index].sceneKey===action.key){return state;}state.children=state.children.splice(0,1);state.children[0]=(0,_State.getInitialState)(props,scenes,state.index,action);return babelHelpers.extends({},state,{index:0,from:null,children:state.children});default:return state;}}function findElement(state,key,type){if(_Actions.ActionMap[type]===ActionConst.REFRESH&&state.key===key||state.sceneKey===key){return state;}if(state.children){for(var _iterator2=state.children,_isArray2=Array.isArray(_iterator2),_i2=0,_iterator2=_isArray2?_iterator2:_iterator2[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref2;if(_isArray2){if(_i2>=_iterator2.length)break;_ref2=_iterator2[_i2++];}else{_i2=_iterator2.next();if(_i2.done)break;_ref2=_i2.value;}var child=_ref2;var current=findElement(child,key,type);if(current)return current;}}return null;}function getCurrent(state){ // 12 = react-native // 490 = ./State // 448 = ./Util // 447 = ./Actions // 450 = ./ActionConst
+getCurrent=getCurrent;var _ActionConst=require(451            );var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst);var _Actions=require(448        );var _Util=require(449     );var _State=require(491      );var _reactNative=require(12            );function checkPropertiesEqual(action,lastAction){var isEqual=true;for(var _iterator=Object.keys(action),_isArray=Array.isArray(_iterator),_i=0,_iterator=_isArray?_iterator:_iterator[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref;if(_isArray){if(_i>=_iterator.length)break;_ref=_iterator[_i++];}else{_i=_iterator.next();if(_i.done)break;_ref=_i.value;}var key=_ref;if(['key','type','parent'].indexOf(key)===-1){if(action[key]!==lastAction[key]){isEqual=false;}}}return isEqual;}function resetHistoryStack(child){var newChild=child;newChild.index=0;child.children.map(function(el,i){if(el.initial){newChild.index=i;if(!newChild.tabs){newChild.children=[el];}}if(el.children){resetHistoryStack(el);}return newChild;});}function refreshTopChild(children,refresh){if(refresh){var topChild=children[children.length-1];return[].concat(babelHelpers.toConsumableArray(children.slice(0,-1)),[babelHelpers.extends({},topChild,refresh)]);}return children;}function inject(state,action,props,scenes){var condition=_Actions.ActionMap[action.type]===ActionConst.REFRESH?state.key===props.key||state.sceneKey===action.key:state.sceneKey===props.parent;if(!condition){if(state.children){var res=state.children.map(function(el){return inject(el,action,props,scenes);});var changed=false;var changedIndex=-1;for(var i=0;i<res.length;i++){if(res[i]!==state.children[i]){changed=true;changedIndex=i;break;}}return changed?babelHelpers.extends({},state,{children:res,index:changedIndex}):state;}return state;}var ind=void 0;switch(_Actions.ActionMap[action.type]){case ActionConst.POP_TO:{var targetIndex=action.targetIndex;return babelHelpers.extends({},state,{index:targetIndex,children:refreshTopChild(state.children.slice(0,targetIndex+1),action.refresh)});}case ActionConst.BACK:case ActionConst.BACK_ACTION:{(0,_Util.assert)(!state.tabs,'pop() operation cannot be run on tab bar (tabs=true)');if(_reactNative.Platform.OS==='android'){(0,_Util.assert)(state.index>0,'You are already in the root scene.');}if(state.index===0){return state;}var popNum=1;if(action.popNum){(0,_Util.assert)(typeof action.popNum==='number','The data is the number of scenes you want to pop, it must be Number');popNum=action.popNum;(0,_Util.assert)(popNum%1===0,'The data is the number of scenes you want to pop, it must be integer.');(0,_Util.assert)(popNum>1,'The data is the number of scenes you want to pop, it must be bigger than 1.');(0,_Util.assert)(popNum<=state.index,'The data is the number of scenes you want to pop, '+"it must be smaller than scenes stack's length.");}return babelHelpers.extends({},state,{index:state.index-popNum,from:state.children[state.children.length-popNum],children:refreshTopChild(state.children.slice(0,-1*popNum),action.refresh)});}case ActionConst.POP_AND_REPLACE:{(0,_Util.assert)(!state.tabs,'pop() operation cannot be run on tab bar (tabs=true)');(0,_Util.assert)(state.index>0,'You are already in the root scene.');var _popNum=1;if(action.popNum){(0,_Util.assert)(typeof action.popNum==='number','The data is the number of scenes you want to pop, it must be Number');_popNum=action.popNum;(0,_Util.assert)(_popNum%1===0,'The data is the number of scenes you want to pop, it must be integer.');(0,_Util.assert)(_popNum>1,'The data is the number of scenes you want to pop, it must be bigger than 1.');(0,_Util.assert)(_popNum<=state.index,'The data is the number of scenes you want to pop, '+"it must be smaller than scenes stack's length.");}state=babelHelpers.extends({},state,{index:state.index-_popNum,from:state.children[state.children.length-_popNum],children:state.children.slice(0,-1*_popNum)});if(state.children[state.index].sceneKey===action.key){return state;}var newAction=babelHelpers.extends({duration:0},action);delete newAction.popNum;var newProps=babelHelpers.extends({},props);delete newProps.popNum;state.children[state.children.length-1]=(0,_State.getInitialState)(newProps,scenes,state.index,newAction);return babelHelpers.extends({},state,{children:state.children});}case ActionConst.REFRESH:return props.base?babelHelpers.extends({navBar:state.navBar},scenes.rootProps,props,{key:state.key,from:null}):babelHelpers.extends({},state,props,{key:state.key,from:null});case ActionConst.PUSH_OR_POP:ind=state.children.findIndex(function(el){return el.sceneKey===action.key;});if(ind!==-1){return babelHelpers.extends({},state,{index:ind,from:state.children[state.index],children:refreshTopChild(state.children.slice(0,ind+1),action.refresh)});}return babelHelpers.extends({},state,{index:state.index+1,from:null,children:[].concat(babelHelpers.toConsumableArray(state.children),[(0,_State.getInitialState)(props,scenes,state.index+1,action)])});case ActionConst.PUSH:if(state.children[state.index].sceneKey===action.key&&!props.clone&&checkPropertiesEqual(action,state.children[state.index])){return state;}return babelHelpers.extends({},state,{index:state.index+1,from:null,children:[].concat(babelHelpers.toConsumableArray(state.children),[(0,_State.getInitialState)(props,scenes,state.index+1,action)])});case ActionConst.JUMP:{(0,_Util.assert)(state.tabs,'Parent='+state.key+' is not tab bar, jump action is not valid');ind=-1;state.children.forEach(function(c,i){if(c.sceneKey===action.key){ind=i;}});(0,_Util.assert)(ind!==-1,'Cannot find route with key='+action.key+' for parent='+state.key);if(action.unmountScenes){resetHistoryStack(state.children[ind]);}return babelHelpers.extends({},state,{index:ind});}case ActionConst.REPLACE:if(state.children[state.index].sceneKey===action.key){return state;}state.children[state.children.length-1]=(0,_State.getInitialState)(props,scenes,state.index,action);return babelHelpers.extends({},state,{children:state.children});case ActionConst.RESET:if(state.children[state.index].sceneKey===action.key){return state;}state.children=state.children.splice(0,1);state.children[0]=(0,_State.getInitialState)(props,scenes,state.index,action);return babelHelpers.extends({},state,{index:0,from:null,children:state.children});default:return state;}}function findElement(state,key,type){if(_Actions.ActionMap[type]===ActionConst.REFRESH&&state.key===key||state.sceneKey===key){return state;}if(state.children){for(var _iterator2=state.children,_isArray2=Array.isArray(_iterator2),_i2=0,_iterator2=_isArray2?_iterator2:_iterator2[typeof Symbol==='function'?Symbol.iterator:'@@iterator']();;){var _ref2;if(_isArray2){if(_i2>=_iterator2.length)break;_ref2=_iterator2[_i2++];}else{_i2=_iterator2.next();if(_i2.done)break;_ref2=_i2.value;}var child=_ref2;var current=findElement(child,key,type);if(current)return current;}}return null;}function getCurrent(state){ // 12 = react-native // 491 = ./State // 449 = ./Util // 448 = ./Actions // 451 = ./ActionConst
 if(!state.children){
 return state;
 }
@@ -76014,7 +76038,7 @@ return state;}
 }exports.default=
 
 reducer;
-}, 489, null, "react-native-router-flux/src/Reducer.js");
+}, 490, null, "react-native-router-flux/src/Reducer.js");
 __d(/* react-native-router-flux/src/State.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.
 
 
@@ -76104,8 +76128,8 @@ var rootRoute=Object.keys(scenes).find(function(route){return(
 scenes.hasOwnProperty(route)&&!scenes[route].parent);});
 
 return getInitialState(scenes[rootRoute],scenes);
-};var _Util=require(448     );var _ActionConst=require(450            );var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst);function getStateFromScenes(route,scenes,props){var getters=[];var result={};var scene=route;while(scene){if(scene.getInitialState){getters.push(scene.getInitialState);}scene=scenes[scene.parent];}if(scenes.rootProps&&scenes.rootProps.getInitialState){getters.push(scenes.rootProps.getInitialState);}getters.reverse().forEach(function(fn){result=babelHelpers.extends({},result,fn(props));});return result;}function getSceneKey(parent,key,position,sceneKey){return[parent,key,position,sceneKey].filter(function(v){return typeof v!=='undefined'&&v!==null;}).join('_');}function getInitialState(route,scenes){var position=arguments.length>2&&arguments[2]!==undefined?arguments[2]:0;var props=arguments.length>3&&arguments[3]!==undefined?arguments[3]:{};var parent=props.parent,key=props.key,style=props.style,type=props.type,parentProps=babelHelpers.objectWithoutProperties(props,['parent','key','style','type']);if(!route.children){return babelHelpers.extends({},scenes.rootProps,route,{key:getSceneKey(parent,key,position,route.sceneKey)},parentProps,getStateFromScenes(route,scenes,props));}var res=babelHelpers.extends({},route,scenes.rootProps,parentProps);var index=0;route.children.forEach(function(r,i){(0,_Util.assert)(scenes[r],'Empty scene for key='+route.key);if(scenes[r].initial){index=i;}});if(route.tabs){res.children=route.children.map(function(r,i){return getInitialState(scenes[r],scenes,i,babelHelpers.extends({},props,{parentIndex:position}));});res.index=index;}else{res.children=[getInitialState(scenes[route.children[index]],scenes,0,props)];res.index=0;}if(route.type===ActionConst.JUMP){res.children=res.children.map(function(child){return babelHelpers.extends({},props,child);});}res.key=position+'_'+res.key;return res;} // 450 = ./ActionConst // 448 = ./Util
-}, 490, null, "react-native-router-flux/src/State.js");
+};var _Util=require(449     );var _ActionConst=require(451            );var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst);function getStateFromScenes(route,scenes,props){var getters=[];var result={};var scene=route;while(scene){if(scene.getInitialState){getters.push(scene.getInitialState);}scene=scenes[scene.parent];}if(scenes.rootProps&&scenes.rootProps.getInitialState){getters.push(scenes.rootProps.getInitialState);}getters.reverse().forEach(function(fn){result=babelHelpers.extends({},result,fn(props));});return result;}function getSceneKey(parent,key,position,sceneKey){return[parent,key,position,sceneKey].filter(function(v){return typeof v!=='undefined'&&v!==null;}).join('_');}function getInitialState(route,scenes){var position=arguments.length>2&&arguments[2]!==undefined?arguments[2]:0;var props=arguments.length>3&&arguments[3]!==undefined?arguments[3]:{};var parent=props.parent,key=props.key,style=props.style,type=props.type,parentProps=babelHelpers.objectWithoutProperties(props,['parent','key','style','type']);if(!route.children){return babelHelpers.extends({},scenes.rootProps,route,{key:getSceneKey(parent,key,position,route.sceneKey)},parentProps,getStateFromScenes(route,scenes,props));}var res=babelHelpers.extends({},route,scenes.rootProps,parentProps);var index=0;route.children.forEach(function(r,i){(0,_Util.assert)(scenes[r],'Empty scene for key='+route.key);if(scenes[r].initial){index=i;}});if(route.tabs){res.children=route.children.map(function(r,i){return getInitialState(scenes[r],scenes,i,babelHelpers.extends({},props,{parentIndex:position}));});res.index=index;}else{res.children=[getInitialState(scenes[route.children[index]],scenes,0,props)];res.index=0;}if(route.type===ActionConst.JUMP){res.children=res.children.map(function(child){return babelHelpers.extends({},props,child);});}res.key=position+'_'+res.key;return res;} // 451 = ./ActionConst // 449 = ./Util
+}, 491, null, "react-native-router-flux/src/State.js");
 __d(/* react-native-router-flux/src/Router.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});
 
 
@@ -76119,14 +76143,14 @@ var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_reac
 
 
 var _reactNative=require(12            ); // 12 = react-native
-var _reactNativeExperimentalNavigation=require(460                                   );var _reactNativeExperimentalNavigation2=babelHelpers.interopRequireDefault(_reactNativeExperimentalNavigation); // 460 = react-native-experimental-navigation
+var _reactNativeExperimentalNavigation=require(461                                   );var _reactNativeExperimentalNavigation2=babelHelpers.interopRequireDefault(_reactNativeExperimentalNavigation); // 461 = react-native-experimental-navigation
 
-var _Actions=require(447        );var _Actions2=babelHelpers.interopRequireDefault(_Actions); // 447 = ./Actions
-var _State=require(490      );var _State2=babelHelpers.interopRequireDefault(_State); // 490 = ./State
-var _Reducer=require(489        );var _Reducer2=babelHelpers.interopRequireDefault(_Reducer); // 489 = ./Reducer
-var _DefaultRenderer=require(451                );var _DefaultRenderer2=babelHelpers.interopRequireDefault(_DefaultRenderer); // 451 = ./DefaultRenderer
-var _Scene=require(449      );var _Scene2=babelHelpers.interopRequireDefault(_Scene); // 449 = ./Scene
-var _ActionConst=require(450            );var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst);var // 450 = ./ActionConst
+var _Actions=require(448        );var _Actions2=babelHelpers.interopRequireDefault(_Actions); // 448 = ./Actions
+var _State=require(491      );var _State2=babelHelpers.interopRequireDefault(_State); // 491 = ./State
+var _Reducer=require(490        );var _Reducer2=babelHelpers.interopRequireDefault(_Reducer); // 490 = ./Reducer
+var _DefaultRenderer=require(452                );var _DefaultRenderer2=babelHelpers.interopRequireDefault(_DefaultRenderer); // 452 = ./DefaultRenderer
+var _Scene=require(450      );var _Scene2=babelHelpers.interopRequireDefault(_Scene); // 450 = ./Scene
+var _ActionConst=require(451            );var ActionConst=babelHelpers.interopRequireWildcard(_ActionConst);var // 451 = ./ActionConst
 
 
 NavigationRootContainer=_reactNativeExperimentalNavigation2.default.RootContainer;
@@ -76272,12 +76296,12 @@ renderNavigation:this.renderNavigation}));
 Router.propTypes=propTypes;exports.default=
 
 Router;
-}, 491, null, "react-native-router-flux/src/Router.js");
+}, 492, null, "react-native-router-flux/src/Router.js");
 __d(/* react-native-router-flux/src/Switch.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
 
-Switch;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react);var _TabBar=require(452       );var _TabBar2=babelHelpers.interopRequireDefault(_TabBar);var _Actions=require(447        );var _Actions2=babelHelpers.interopRequireDefault(_Actions);function Switch(props){ // 447 = ./Actions // 452 = ./TabBar // 279 = react
+Switch;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react);var _TabBar=require(453       );var _TabBar2=babelHelpers.interopRequireDefault(_TabBar);var _Actions=require(448        );var _Actions2=babelHelpers.interopRequireDefault(_Actions);function Switch(props){ // 448 = ./Actions // 453 = ./TabBar // 279 = react
 var navState=props.navigationState;
 
 var selector=props.selector;
@@ -76346,14 +76370,14 @@ onNavigate:_react.PropTypes.func,
 selector:_react.PropTypes.func,
 statem:_react.PropTypes.any,
 unmountScenes:_react.PropTypes.bool};
-}, 492, null, "react-native-router-flux/src/Switch.js");
+}, 493, null, "react-native-router-flux/src/Switch.js");
 __d(/* ReactLibrary/src/components/BookList/BookList.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 var _reactRedux=require(404          ); // 404 = react-redux
 
-var _actions=require(494            ); // 494 = ../../actions
-var _shared=require(521        ); // 521 = ../shared
-var _BookListItem=require(525             );var _BookListItem2=babelHelpers.interopRequireDefault(_BookListItem);var // 525 = ./BookListItem
+var _actions=require(495            ); // 495 = ../../actions
+var _shared=require(523        ); // 523 = ../shared
+var _BookListItem=require(527             );var _BookListItem2=babelHelpers.interopRequireDefault(_BookListItem);var // 527 = ./BookListItem
 
 BookList=function(_Component){babelHelpers.inherits(BookList,_Component);function BookList(){babelHelpers.classCallCheck(this,BookList);return babelHelpers.possibleConstructorReturn(this,(BookList.__proto__||Object.getPrototypeOf(BookList)).apply(this,arguments));}babelHelpers.createClass(BookList,[{key:'componentWillMount',value:function componentWillMount()
 
@@ -76367,13 +76391,13 @@ this.createDataSource(nextProps);
 console.log('Will receive props: '+nextProps);
 }},{key:'createDataSource',value:function createDataSource(_ref)
 
-{var books=_ref.books;
+{var booksList=_ref.booksList;
 var dataSource=new _reactNative.ListView.DataSource({
 rowHasChanged:function rowHasChanged(r1,r2){return r1!==r2;}});
 
 
-this.dataSource=dataSource.cloneWithRows(books);
-console.log('Create datasource: '+books);
+this.dataSource=dataSource.cloneWithRows(booksList);
+console.log('Create datasource: '+booksList);
 }},{key:'renderRow',value:function renderRow(
 
 book){
@@ -76401,19 +76425,18 @@ return this.renderListView();
 
 
 var mapStateToProps=function mapStateToProps(state){var
-books=state.books,error=state.error,loading=state.loading;
-return{books:books,error:error,loading:loading};
+booksList=state.booksList,error=state.error,loading=state.loading;
+return{booksList:booksList,error:error,loading:loading};
 };exports.default=
 
 (0,_reactRedux.connect)(mapStateToProps,{loadBooks:_actions.loadBooks})(BookList);
-}, 493, null, "ReactLibrary/src/components/BookList/BookList.js");
-__d(/* ReactLibrary/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _BooksActions=require(495             );Object.keys(_BooksActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _BooksActions[key];}});}); // 495 = ./BooksActions
-}, 494, null, "ReactLibrary/src/actions/index.js");
-__d(/* ReactLibrary/src/actions/BooksActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.openBook=exports.checkoutBook=exports.loadBooks=undefined;var _axios=require(496    );var _axios2=babelHelpers.interopRequireDefault(_axios); // 496 = axios
-var _reactNativeRouterFlux=require(446                       ); // 446 = react-native-router-flux
+}, 494, null, "ReactLibrary/src/components/BookList/BookList.js");
+__d(/* ReactLibrary/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _BooksListActions=require(496                 );Object.keys(_BooksListActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _BooksListActions[key];}});});var _BookEditActions=require(522                ); // 522 = ./BookEditActions // 496 = ./BooksListActions
+Object.keys(_BookEditActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _BookEditActions[key];}});});
+}, 495, null, "ReactLibrary/src/actions/index.js");
+__d(/* ReactLibrary/src/actions/BooksListActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.openBook=exports.checkoutBook=exports.loadBooks=undefined;var _axios=require(497    );var _axios2=babelHelpers.interopRequireDefault(_axios); // 497 = axios
+var _reactNativeRouterFlux=require(447                       ); // 447 = react-native-router-flux
 var _types=require(444      ); // 444 = ./types
-
-
 
 
 
@@ -76448,15 +76471,15 @@ var openBook=exports.openBook=function openBook(book){
 _reactNativeRouterFlux.Actions.bookInfo({book:book});
 return{type:_types.OPEN_BOOK,payload:book};
 };
-}, 495, null, "ReactLibrary/src/actions/BooksActions.js");
-__d(/* axios/index.js */function(global, require, module, exports) {module.exports=require(497          ); // 497 = ./lib/axios
-}, 496, null, "axios/index.js");
+}, 496, null, "ReactLibrary/src/actions/BooksListActions.js");
+__d(/* axios/index.js */function(global, require, module, exports) {module.exports=require(498          ); // 498 = ./lib/axios
+}, 497, null, "axios/index.js");
 __d(/* axios/lib/axios.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498      ); // 498 = ./utils
-var bind=require(499             ); // 499 = ./helpers/bind
-var Axios=require(500           ); // 500 = ./core/Axios
-var defaults=require(501         ); // 501 = ./defaults
+var utils=require(499      ); // 499 = ./utils
+var bind=require(500             ); // 500 = ./helpers/bind
+var Axios=require(501           ); // 501 = ./core/Axios
+var defaults=require(502         ); // 502 = ./defaults
 
 
 
@@ -76489,24 +76512,24 @@ return createInstance(utils.merge(defaults,instanceConfig));
 };
 
 
-axios.Cancel=require(518              ); // 518 = ./cancel/Cancel
-axios.CancelToken=require(519                   ); // 519 = ./cancel/CancelToken
-axios.isCancel=require(515                ); // 515 = ./cancel/isCancel
+axios.Cancel=require(519              ); // 519 = ./cancel/Cancel
+axios.CancelToken=require(520                   ); // 520 = ./cancel/CancelToken
+axios.isCancel=require(516                ); // 516 = ./cancel/isCancel
 
 
 axios.all=function all(promises){
 return Promise.all(promises);
 };
-axios.spread=require(520               ); // 520 = ./helpers/spread
+axios.spread=require(521               ); // 521 = ./helpers/spread
 
 module.exports=axios;
 
 
 module.exports.default=axios;
-}, 497, null, "axios/lib/axios.js");
+}, 498, null, "axios/lib/axios.js");
 __d(/* axios/lib/utils.js */function(global, require, module, exports) {'use strict';
 
-var bind=require(499             ); // 499 = ./helpers/bind
+var bind=require(500             ); // 500 = ./helpers/bind
 
 
 
@@ -76802,7 +76825,7 @@ forEach:forEach,
 merge:merge,
 extend:extend,
 trim:trim};
-}, 498, null, "axios/lib/utils.js");
+}, 499, null, "axios/lib/utils.js");
 __d(/* axios/lib/helpers/bind.js */function(global, require, module, exports) {'use strict';
 
 module.exports=function bind(fn,thisArg){
@@ -76814,15 +76837,15 @@ args[i]=arguments[i];
 return fn.apply(thisArg,args);
 };
 };
-}, 499, null, "axios/lib/helpers/bind.js");
+}, 500, null, "axios/lib/helpers/bind.js");
 __d(/* axios/lib/core/Axios.js */function(global, require, module, exports) {'use strict';
 
-var defaults=require(501            ); // 501 = ./../defaults
-var utils=require(498         ); // 498 = ./../utils
-var InterceptorManager=require(512                   ); // 512 = ./InterceptorManager
-var dispatchRequest=require(513                ); // 513 = ./dispatchRequest
-var isAbsoluteURL=require(516                         ); // 516 = ./../helpers/isAbsoluteURL
-var combineURLs=require(517                       ); // 517 = ./../helpers/combineURLs
+var defaults=require(502            ); // 502 = ./../defaults
+var utils=require(499         ); // 499 = ./../utils
+var InterceptorManager=require(513                   ); // 513 = ./InterceptorManager
+var dispatchRequest=require(514                ); // 514 = ./dispatchRequest
+var isAbsoluteURL=require(517                         ); // 517 = ./../helpers/isAbsoluteURL
+var combineURLs=require(518                       ); // 518 = ./../helpers/combineURLs
 
 
 
@@ -76900,11 +76923,11 @@ data:data}));
 });
 
 module.exports=Axios;
-}, 500, null, "axios/lib/core/Axios.js");
+}, 501, null, "axios/lib/core/Axios.js");
 __d(/* axios/lib/defaults.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498      ); // 498 = ./utils
-var normalizeHeaderName=require(502                            ); // 502 = ./helpers/normalizeHeaderName
+var utils=require(499      ); // 499 = ./utils
+var normalizeHeaderName=require(503                            ); // 503 = ./helpers/normalizeHeaderName
 
 var PROTECTION_PREFIX=/^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE={
@@ -76921,10 +76944,10 @@ function getDefaultAdapter(){
 var adapter;
 if(typeof XMLHttpRequest!=='undefined'){
 
-adapter=require(503             ); // 503 = ./adapters/xhr
+adapter=require(504             ); // 504 = ./adapters/xhr
 }else if(typeof process!=='undefined'){
 
-adapter=require(503              ); // 503 = ./adapters/http
+adapter=require(504              ); // 504 = ./adapters/http
 }
 return adapter;
 }
@@ -76994,10 +77017,10 @@ defaults.headers[method]=utils.merge(DEFAULT_CONTENT_TYPE);
 });
 
 module.exports=defaults;
-}, 501, null, "axios/lib/defaults.js");
+}, 502, null, "axios/lib/defaults.js");
 __d(/* axios/lib/helpers/normalizeHeaderName.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498       ); // 498 = ../utils
+var utils=require(499       ); // 499 = ../utils
 
 module.exports=function normalizeHeaderName(headers,normalizedName){
 utils.forEach(headers,function processHeader(value,name){
@@ -77007,16 +77030,16 @@ delete headers[name];
 }
 });
 };
-}, 502, null, "axios/lib/helpers/normalizeHeaderName.js");
+}, 503, null, "axios/lib/helpers/normalizeHeaderName.js");
 __d(/* axios/lib/adapters/xhr.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498         ); // 498 = ./../utils
-var settle=require(504               ); // 504 = ./../core/settle
-var buildURL=require(507                    ); // 507 = ./../helpers/buildURL
-var parseHeaders=require(508                        ); // 508 = ./../helpers/parseHeaders
-var isURLSameOrigin=require(509                           ); // 509 = ./../helpers/isURLSameOrigin
-var createError=require(505                  ); // 505 = ../core/createError
-var btoa=typeof window!=='undefined'&&window.btoa&&window.btoa.bind(window)||require(510                ); // 510 = ./../helpers/btoa
+var utils=require(499         ); // 499 = ./../utils
+var settle=require(505               ); // 505 = ./../core/settle
+var buildURL=require(508                    ); // 508 = ./../helpers/buildURL
+var parseHeaders=require(509                        ); // 509 = ./../helpers/parseHeaders
+var isURLSameOrigin=require(510                           ); // 510 = ./../helpers/isURLSameOrigin
+var createError=require(506                  ); // 506 = ../core/createError
+var btoa=typeof window!=='undefined'&&window.btoa&&window.btoa.bind(window)||require(511                ); // 511 = ./../helpers/btoa
 
 module.exports=function xhrAdapter(config){
 return new Promise(function dispatchXhrRequest(resolve,reject){
@@ -77112,7 +77135,7 @@ request=null;
 
 
 if(utils.isStandardBrowserEnv()){
-var cookies=require(511                   ); // 511 = ./../helpers/cookies
+var cookies=require(512                   ); // 512 = ./../helpers/cookies
 
 
 var xsrfValue=(config.withCredentials||isURLSameOrigin(config.url))&&config.xsrfCookieName?
@@ -77185,10 +77208,10 @@ requestData=null;
 request.send(requestData);
 });
 };
-}, 503, null, "axios/lib/adapters/xhr.js");
+}, 504, null, "axios/lib/adapters/xhr.js");
 __d(/* axios/lib/core/settle.js */function(global, require, module, exports) {'use strict';
 
-var createError=require(505            ); // 505 = ./createError
+var createError=require(506            ); // 506 = ./createError
 
 
 
@@ -77211,10 +77234,10 @@ response));
 
 }
 };
-}, 504, null, "axios/lib/core/settle.js");
+}, 505, null, "axios/lib/core/settle.js");
 __d(/* axios/lib/core/createError.js */function(global, require, module, exports) {'use strict';
 
-var enhanceError=require(506             ); // 506 = ./enhanceError
+var enhanceError=require(507             ); // 507 = ./enhanceError
 
 
 
@@ -77229,7 +77252,7 @@ module.exports=function createError(message,config,code,response){
 var error=new Error(message);
 return enhanceError(error,config,code,response);
 };
-}, 505, null, "axios/lib/core/createError.js");
+}, 506, null, "axios/lib/core/createError.js");
 __d(/* axios/lib/core/enhanceError.js */function(global, require, module, exports) {'use strict';
 
 
@@ -77249,10 +77272,10 @@ error.code=code;
 error.response=response;
 return error;
 };
-}, 506, null, "axios/lib/core/enhanceError.js");
+}, 507, null, "axios/lib/core/enhanceError.js");
 __d(/* axios/lib/helpers/buildURL.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498         ); // 498 = ./../utils
+var utils=require(499         ); // 499 = ./../utils
 
 function encode(val){
 return encodeURIComponent(val).
@@ -77318,10 +77341,10 @@ url+=(url.indexOf('?')===-1?'?':'&')+serializedParams;
 
 return url;
 };
-}, 507, null, "axios/lib/helpers/buildURL.js");
+}, 508, null, "axios/lib/helpers/buildURL.js");
 __d(/* axios/lib/helpers/parseHeaders.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498         ); // 498 = ./../utils
+var utils=require(499         ); // 499 = ./../utils
 
 
 
@@ -77356,10 +77379,10 @@ parsed[key]=parsed[key]?parsed[key]+', '+val:val;
 
 return parsed;
 };
-}, 508, null, "axios/lib/helpers/parseHeaders.js");
+}, 509, null, "axios/lib/helpers/parseHeaders.js");
 __d(/* axios/lib/helpers/isURLSameOrigin.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498         ); // 498 = ./../utils
+var utils=require(499         ); // 499 = ./../utils
 
 module.exports=
 utils.isStandardBrowserEnv()?
@@ -77424,7 +77447,7 @@ return function isURLSameOrigin(){
 return true;
 };
 }();
-}, 509, null, "axios/lib/helpers/isURLSameOrigin.js");
+}, 510, null, "axios/lib/helpers/isURLSameOrigin.js");
 __d(/* axios/lib/helpers/btoa.js */function(global, require, module, exports) {'use strict';
 
 
@@ -77461,10 +77484,10 @@ return output;
 }
 
 module.exports=btoa;
-}, 510, null, "axios/lib/helpers/btoa.js");
+}, 511, null, "axios/lib/helpers/btoa.js");
 __d(/* axios/lib/helpers/cookies.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498         ); // 498 = ./../utils
+var utils=require(499         ); // 499 = ./../utils
 
 module.exports=
 utils.isStandardBrowserEnv()?
@@ -77514,10 +77537,10 @@ read:function read(){return null;},
 remove:function remove(){}};
 
 }();
-}, 511, null, "axios/lib/helpers/cookies.js");
+}, 512, null, "axios/lib/helpers/cookies.js");
 __d(/* axios/lib/core/InterceptorManager.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498         ); // 498 = ./../utils
+var utils=require(499         ); // 499 = ./../utils
 
 function InterceptorManager(){
 this.handlers=[];
@@ -77567,13 +77590,13 @@ fn(h);
 };
 
 module.exports=InterceptorManager;
-}, 512, null, "axios/lib/core/InterceptorManager.js");
+}, 513, null, "axios/lib/core/InterceptorManager.js");
 __d(/* axios/lib/core/dispatchRequest.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498         ); // 498 = ./../utils
-var transformData=require(514              ); // 514 = ./transformData
-var isCancel=require(515                 ); // 515 = ../cancel/isCancel
-var defaults=require(501          ); // 501 = ../defaults
+var utils=require(499         ); // 499 = ./../utils
+var transformData=require(515              ); // 515 = ./transformData
+var isCancel=require(516                 ); // 516 = ../cancel/isCancel
+var defaults=require(502          ); // 502 = ../defaults
 
 
 
@@ -77647,10 +77670,10 @@ config.transformResponse);
 return Promise.reject(reason);
 });
 };
-}, 513, null, "axios/lib/core/dispatchRequest.js");
+}, 514, null, "axios/lib/core/dispatchRequest.js");
 __d(/* axios/lib/core/transformData.js */function(global, require, module, exports) {'use strict';
 
-var utils=require(498         ); // 498 = ./../utils
+var utils=require(499         ); // 499 = ./../utils
 
 
 
@@ -77668,13 +77691,13 @@ data=fn(data,headers);
 
 return data;
 };
-}, 514, null, "axios/lib/core/transformData.js");
+}, 515, null, "axios/lib/core/transformData.js");
 __d(/* axios/lib/cancel/isCancel.js */function(global, require, module, exports) {'use strict';
 
 module.exports=function isCancel(value){
 return!!(value&&value.__CANCEL__);
 };
-}, 515, null, "axios/lib/cancel/isCancel.js");
+}, 516, null, "axios/lib/cancel/isCancel.js");
 __d(/* axios/lib/helpers/isAbsoluteURL.js */function(global, require, module, exports) {'use strict';
 
 
@@ -77689,7 +77712,7 @@ module.exports=function isAbsoluteURL(url){
 
 return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
 };
-}, 516, null, "axios/lib/helpers/isAbsoluteURL.js");
+}, 517, null, "axios/lib/helpers/isAbsoluteURL.js");
 __d(/* axios/lib/helpers/combineURLs.js */function(global, require, module, exports) {'use strict';
 
 
@@ -77702,7 +77725,7 @@ __d(/* axios/lib/helpers/combineURLs.js */function(global, require, module, expo
 module.exports=function combineURLs(baseURL,relativeURL){
 return baseURL.replace(/\/+$/,'')+'/'+relativeURL.replace(/^\/+/,'');
 };
-}, 517, null, "axios/lib/helpers/combineURLs.js");
+}, 518, null, "axios/lib/helpers/combineURLs.js");
 __d(/* axios/lib/cancel/Cancel.js */function(global, require, module, exports) {'use strict';
 
 
@@ -77722,10 +77745,10 @@ return'Cancel'+(this.message?': '+this.message:'');
 Cancel.prototype.__CANCEL__=true;
 
 module.exports=Cancel;
-}, 518, null, "axios/lib/cancel/Cancel.js");
+}, 519, null, "axios/lib/cancel/Cancel.js");
 __d(/* axios/lib/cancel/CancelToken.js */function(global, require, module, exports) {'use strict';
 
-var Cancel=require(518       ); // 518 = ./Cancel
+var Cancel=require(519       ); // 519 = ./Cancel
 
 
 
@@ -77780,7 +77803,7 @@ cancel:cancel};
 };
 
 module.exports=CancelToken;
-}, 519, null, "axios/lib/cancel/CancelToken.js");
+}, 520, null, "axios/lib/cancel/CancelToken.js");
 __d(/* axios/lib/helpers/spread.js */function(global, require, module, exports) {'use strict';
 
 
@@ -77808,11 +77831,19 @@ return function wrap(arr){
 return callback.apply(null,arr);
 };
 };
-}, 520, null, "axios/lib/helpers/spread.js");
-__d(/* ReactLibrary/src/components/shared/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _Spinner=require(522        );Object.keys(_Spinner).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Spinner[key];}});});var _Button=require(523       ); // 523 = ./Button // 522 = ./Spinner
-Object.keys(_Button).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Button[key];}});});var _Input=require(524      ); // 524 = ./Input
+}, 521, null, "axios/lib/helpers/spread.js");
+__d(/* ReactLibrary/src/actions/BookEditActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.editBook=undefined;var _types=require(444      ); // 444 = ./types
+
+
+
+var editBook=exports.editBook=function editBook(_ref){var prop=_ref.prop,value=_ref.value;return{
+type:_types.EDIT_BOOK,
+payload:{prop:prop,value:value}};};
+}, 522, null, "ReactLibrary/src/actions/BookEditActions.js");
+__d(/* ReactLibrary/src/components/shared/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _Spinner=require(524        );Object.keys(_Spinner).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Spinner[key];}});});var _Button=require(525       ); // 525 = ./Button // 524 = ./Spinner
+Object.keys(_Button).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Button[key];}});});var _Input=require(526      ); // 526 = ./Input
 Object.keys(_Input).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Input[key];}});});
-}, 521, null, "ReactLibrary/src/components/shared/index.js");
+}, 523, null, "ReactLibrary/src/components/shared/index.js");
 __d(/* ReactLibrary/src/components/shared/Spinner.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Spinner=undefined;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 
@@ -77833,7 +77864,7 @@ alignItems:'center'}};exports.
 
 
 Spinner=Spinner;
-}, 522, null, "ReactLibrary/src/components/shared/Spinner.js");
+}, 524, null, "ReactLibrary/src/components/shared/Spinner.js");
 __d(/* ReactLibrary/src/components/shared/Button.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Button=undefined;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 
@@ -77872,7 +77903,7 @@ maxHeight:44}};exports.
 
 
 Button=Button;
-}, 523, null, "ReactLibrary/src/components/shared/Button.js");
+}, 525, null, "ReactLibrary/src/components/shared/Button.js");
 __d(/* ReactLibrary/src/components/shared/Input.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Input=undefined;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 
@@ -77895,17 +77926,15 @@ onChangeText:onChangeText})));
 
 var styles={
 inputStyle:{
-color:'#000',
 paddingRight:5,
 paddingLeft:20,
 fontSize:16,
-flex:3},
+minHeight:50},
 
 labelStyle:{
 fontSize:12,
-paddingTop:10,
-paddingLeft:20,
-flex:1},
+paddingTop:5,
+paddingLeft:20},
 
 containerStyle:{
 flex:1,
@@ -77914,11 +77943,11 @@ justifyContent:'center'}};exports.
 
 
 Input=Input;
-}, 524, null, "ReactLibrary/src/components/shared/Input.js");
+}, 526, null, "ReactLibrary/src/components/shared/Input.js");
 __d(/* ReactLibrary/src/components/BookList/BookListItem.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactRedux=require(404          ); // 404 = react-redux
 var _reactNative=require(12            ); // 12 = react-native
-var _actions=require(494            );var // 494 = ../../actions
+var _actions=require(495            );var // 495 = ../../actions
 
 BookListItem=function(_Component){babelHelpers.inherits(BookListItem,_Component);function BookListItem(){babelHelpers.classCallCheck(this,BookListItem);return babelHelpers.possibleConstructorReturn(this,(BookListItem.__proto__||Object.getPrototypeOf(BookListItem)).apply(this,arguments));}babelHelpers.createClass(BookListItem,[{key:'onRowPress',value:function onRowPress()
 
@@ -77967,13 +77996,13 @@ position:'relative'}};exports.default=
 
 
 (0,_reactRedux.connect)(null,{openBook:_actions.openBook})(BookListItem);
-}, 525, null, "ReactLibrary/src/components/BookList/BookListItem.js");
+}, 527, null, "ReactLibrary/src/components/BookList/BookListItem.js");
 __d(/* ReactLibrary/src/components/BookInfo/BookInfo.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 var _reactRedux=require(404          ); // 404 = react-redux
-var _shared=require(521        ); // 521 = ../shared
-var _BookDescription=require(527                );var _BookDescription2=babelHelpers.interopRequireDefault(_BookDescription); // 527 = ./BookDescription
-var _actions=require(494            );var // 494 = ../../actions
+var _shared=require(523        ); // 523 = ../shared
+var _BookDescription=require(529                );var _BookDescription2=babelHelpers.interopRequireDefault(_BookDescription); // 529 = ./BookDescription
+var _actions=require(495            );var // 495 = ../../actions
 
 BookInfo=function(_Component){babelHelpers.inherits(BookInfo,_Component);function BookInfo(){babelHelpers.classCallCheck(this,BookInfo);return babelHelpers.possibleConstructorReturn(this,(BookInfo.__proto__||Object.getPrototypeOf(BookInfo)).apply(this,arguments));}babelHelpers.createClass(BookInfo,[{key:'onButtonPress',value:function onButtonPress()
 
@@ -78056,7 +78085,7 @@ height:44}};exports.default=
 
 
 (0,_reactRedux.connect)(null,{checkoutBook:_actions.checkoutBook})(BookInfo);
-}, 526, null, "ReactLibrary/src/components/BookInfo/BookInfo.js");
+}, 528, null, "ReactLibrary/src/components/BookInfo/BookInfo.js");
 __d(/* ReactLibrary/src/components/BookInfo/BookDescription.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 
@@ -78100,33 +78129,59 @@ fontWeight:'bold'}};exports.default=
 
 
 BookDescription;
-}, 527, null, "ReactLibrary/src/components/BookInfo/BookDescription.js");
+}, 529, null, "ReactLibrary/src/components/BookInfo/BookDescription.js");
 __d(/* ReactLibrary/src/components/BookEdit/BookEdit.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactRedux=require(404          ); // 404 = react-redux
 var _reactNative=require(12            ); // 12 = react-native
-var _actions=require(494            );var // 494 = ../../actions
+var _shared=require(523        );var // 523 = ../shared
 
 
 
 
 
-BookEdit=function(_Component){babelHelpers.inherits(BookEdit,_Component);function BookEdit(){babelHelpers.classCallCheck(this,BookEdit);return babelHelpers.possibleConstructorReturn(this,(BookEdit.__proto__||Object.getPrototypeOf(BookEdit)).apply(this,arguments));}babelHelpers.createClass(BookEdit,[{key:'render',value:function render()
+BookEdit=function(_Component){babelHelpers.inherits(BookEdit,_Component);function BookEdit(){babelHelpers.classCallCheck(this,BookEdit);return babelHelpers.possibleConstructorReturn(this,(BookEdit.__proto__||Object.getPrototypeOf(BookEdit)).apply(this,arguments));}babelHelpers.createClass(BookEdit,[{key:'onTextChange',value:function onTextChange(
+
+text,source){
+
+}},{key:'render',value:function render()
+
 {
 return(
-_react2.default.createElement(_reactNative.View,null,
-_react2.default.createElement(_reactNative.Text,null,this.props.openedBook.title)));
+_react2.default.createElement(_reactNative.View,{style:{flex:1}},
+_react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'center'}},
+_react2.default.createElement(_shared.Input,{
+label:'Title',
+value:this.props.openedBook.title}),
+
+_react2.default.createElement(_shared.Input,{
+label:'Author',
+value:this.props.openedBook.author}),
+
+_react2.default.createElement(_shared.Input,{
+label:'Publisher',
+value:this.props.openedBook.publisher}),
+
+_react2.default.createElement(_shared.Input,{
+label:'Categories',
+value:this.props.openedBook.categories})),
+
+
+_react2.default.createElement(_reactNative.View,{style:{flex:1}},
+_react2.default.createElement(_shared.Button,null,'Save'))));
+
+
 
 
 }}]);return BookEdit;}(_react.Component);
 
 
 var mapStateToProps=function mapStateToProps(state){var
-openedBook=state.books.openedBook;
+openedBook=state.booksList.openedBook;
 return{openedBook:openedBook};
 };exports.default=
 
 (0,_reactRedux.connect)(mapStateToProps,{})(BookEdit);
-}, 528, null, "ReactLibrary/src/components/BookEdit/BookEdit.js");
+}, 530, null, "ReactLibrary/src/components/BookEdit/BookEdit.js");
 ;require(215);
 ;require(0);
 //# sourceMappingURL=index.ios.map

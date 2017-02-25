@@ -8,9 +8,14 @@ import { Input, Button } from '../shared';
 // update book in BookInfo
 
 class BookEdit extends Component {
+
+  onTextChange(text, source) {
+    
+  }
+
   render() {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <Input 
             label='Title'
@@ -29,7 +34,7 @@ class BookEdit extends Component {
             value={this.props.openedBook.categories} 
           />
         </View>
-        <View>
+        <View style={{ flex: 1 }}>
           <Button>Save</Button>
         </View>
 
@@ -39,7 +44,7 @@ class BookEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { openedBook } = state.books;
+  const { openedBook } = state.booksList;
   return { openedBook };
 };
 
