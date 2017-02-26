@@ -49,8 +49,8 @@ class BookList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { books, error, loading } = state.booksList;
-  return { books, error, loading };
+  const { books, error, loading, openedBook } = state.booksList;
+  return { books, error, loading, openedBook };
 };
 
 export default connect(mapStateToProps, { loadBooks })(BookList);

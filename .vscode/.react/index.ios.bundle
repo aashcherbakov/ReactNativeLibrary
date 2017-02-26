@@ -70727,11 +70727,25 @@ case _types.LOAD_BOOKS_FAILED:
 return babelHelpers.extends({},state,{loading:false,error:'Error'});
 case _types.OPEN_BOOK:
 return babelHelpers.extends({},state,{openedBook:action.payload});
-case _types.UPDATE_BOOK_SUCCESS:
-return babelHelpers.extends({},state,{openedBook:action.payload});
+case _types.UPDATE_BOOK_SUCCESS:{
+var updatedList=updateList(state.books,action.payload);
+return{books:updatedList,openedBook:action.payload};
+}
 default:
 return state;}
 
+};
+
+var updateList=function updateList(books,newBook){
+var currentBooks=books;
+var bookToUpdate=currentBooks.find(function(book){return book.id===newBook.id;});
+if(bookToUpdate!==newBook){
+var updatedBookIndex=currentBooks.indexOf(bookToUpdate);
+currentBooks[updatedBookIndex]=newBook;
+return currentBooks;
+}
+
+return books;
 };
 }, 443, null, "ReactLibrary/src/reducers/BooksListReducer.js");
 __d(/* ReactLibrary/src/actions/types.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var LOAD_BOOKS=exports.LOAD_BOOKS='load_books';
@@ -76430,8 +76444,8 @@ return this.renderListView();
 
 
 var mapStateToProps=function mapStateToProps(state){var _state$booksList=
-state.booksList,books=_state$booksList.books,error=_state$booksList.error,loading=_state$booksList.loading;
-return{books:books,error:error,loading:loading};
+state.booksList,books=_state$booksList.books,error=_state$booksList.error,loading=_state$booksList.loading,openedBook=_state$booksList.openedBook;
+return{books:books,error:error,loading:loading,openedBook:openedBook};
 };exports.default=
 
 (0,_reactRedux.connect)(mapStateToProps,{loadBooks:_actions.loadBooks})(BookList);

@@ -21,9 +21,23 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: false, error: 'Error' };
     case OPEN_BOOK:
       return { ...state, openedBook: action.payload };
-    case UPDATE_BOOK_SUCCESS: 
-      return { ...state, openedBook: action.payload };
+    case UPDATE_BOOK_SUCCESS: {
+      const updatedList = updateList(state.books, action.payload);
+      return { books: updatedList, openedBook: action.payload };
+    }
     default:
       return state;
   }
+};
+
+const updateList = (books, newBook) => {
+  const currentBooks = books;
+  const bookToUpdate = currentBooks.find(book => book.id === newBook.id);
+  if (bookToUpdate !== newBook) {
+    const updatedBookIndex = currentBooks.indexOf(bookToUpdate);
+    currentBooks[updatedBookIndex] = newBook;
+    return currentBooks;
+  }
+  
+  return books;
 };
