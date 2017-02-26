@@ -3,7 +3,14 @@ import { View, Modal, Text } from 'react-native';
 import { Button } from './Button';
 
 const Alert = ({ children, visible, onAccept, onDecline }) => {
-  const { sectionStyle, textStyle, containerStyle } = styles;
+  const { 
+    testSectionStyle, 
+    textStyle, 
+    containerStyle, 
+    buttonSectionStyle,
+    backgroundStyle
+  } = styles;
+
   return (
     <Modal 
       style={{ flex: 1 }}
@@ -13,12 +20,14 @@ const Alert = ({ children, visible, onAccept, onDecline }) => {
       onRequestClose={() => {}}
     >
       <View style={containerStyle}>
-        <View style={sectionStyle}>
-          <Text style={textStyle}>{children}</Text>
-        </View>
-        <View style={sectionStyle}>
-          <Button onPress={onAccept} >Yes</Button>
-          <Button onPress={onDecline} >No</Button>
+        <View style={backgroundStyle}>
+          <View style={testSectionStyle}>
+            <Text style={textStyle}>{children}</Text>
+          </View>
+          <View style={buttonSectionStyle}>
+            <Button onPress={onAccept} >Yes</Button>
+            <Button onPress={onDecline} >No</Button>
+          </View>
         </View>
       </View>
     </Modal>
@@ -26,23 +35,34 @@ const Alert = ({ children, visible, onAccept, onDecline }) => {
 };
 
 const styles = {
-  sectionStyle: {
-    height: 100,
+  backgroundStyle: {
     backgroundColor: 'white',
+    borderRadius: 5
+  },
+  textSectionStyle: {
+    justifyContent: 'center'
+  },
+  buttonSectionStyle: {
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    paddingBottom: 5
   },
   textStyle: {
-    flex: 1,
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'center',
-    lineHeight: 40
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0)'
   },
   containerStyle: {
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    backgroundColor: 'rgba(0, 0, 0, 0.45)',
     position: 'relative',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingLeft: 60,
+    paddingRight: 60
   }
 };
 
