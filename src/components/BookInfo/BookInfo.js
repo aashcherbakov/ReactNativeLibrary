@@ -40,9 +40,11 @@ class BookInfo extends Component {
           <BookDescription style={styles.descriptionContainer}>
             {this.props.book}
           </BookDescription>
+
           <View style={styles.buttonContainer}>
             {this.renderButton()}
           </View>
+          
         </View>
       </View>
     );

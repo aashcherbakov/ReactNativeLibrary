@@ -70764,6 +70764,7 @@ var CHECKOUT_FAILED=exports.CHECKOUT_FAILED='checkout_failed';
 var OPEN_BOOK=exports.OPEN_BOOK='open_book';
 
 var MODIFY_BOOK_PROPERTY=exports.MODIFY_BOOK_PROPERTY='modify_book_property';
+var CLEAR_PROPERTIES=exports.CLEAR_PROPERTIES='clear_properties';
 
 var UPDATE_BOOK=exports.UPDATE_BOOK='update_book';
 var UPDATE_BOOK_SUCCESS=exports.UPDATE_BOOK_SUCCESS='update_book_success';
@@ -70777,17 +70778,20 @@ __d(/* ReactLibrary/src/reducers/BookEditReducer.js */function(global, require, 
 
 
 
+
 var INITIAL_STATE={
-title:'',
-author:'',
-categories:'',
-publisher:''};exports.default=
+title:null,
+author:null,
+categories:null,
+publisher:null};exports.default=
 
 
 function(){var state=arguments.length>0&&arguments[0]!==undefined?arguments[0]:INITIAL_STATE;var action=arguments[1];
 switch(action.type){
 case _types.MODIFY_BOOK_PROPERTY:
 return babelHelpers.extends({},state,babelHelpers.defineProperty({},action.payload.prop,action.payload.value));
+case _types.CLEAR_PROPERTIES:
+return INITIAL_STATE;
 default:
 return state;}
 
@@ -77870,9 +77874,10 @@ return callback.apply(null,arr);
 }, 521, null, "axios/lib/helpers/spread.js");
 __d(/* ReactLibrary/src/constants.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var BASE_URL=exports.BASE_URL='https://guarded-retreat-23994.herokuapp.com';
 }, 522, null, "ReactLibrary/src/constants.js");
-__d(/* ReactLibrary/src/actions/BookEditActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.createBook=exports.updateBook=exports.modifyBookProperty=undefined;var _axios=require(497    );var _axios2=babelHelpers.interopRequireDefault(_axios); // 497 = axios
+__d(/* ReactLibrary/src/actions/BookEditActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.createBook=exports.updateBook=exports.clearProperties=exports.modifyBookProperty=undefined;var _axios=require(497    );var _axios2=babelHelpers.interopRequireDefault(_axios); // 497 = axios
 var _reactNativeRouterFlux=require(447                       ); // 447 = react-native-router-flux
 var _types=require(444      ); // 444 = ./types
+
 
 
 
@@ -77887,6 +77892,8 @@ var modifyBookProperty=exports.modifyBookProperty=function modifyBookProperty(_r
 type:_types.MODIFY_BOOK_PROPERTY,
 payload:{prop:prop,value:value}};};
 
+
+var clearProperties=exports.clearProperties=function clearProperties(){return{type:_types.CLEAR_PROPERTIES};};
 
 var updateBook=exports.updateBook=function updateBook(book,updatedProps){
 return function(dispatch){
@@ -77944,11 +77951,17 @@ Spinner=Spinner;
 __d(/* ReactLibrary/src/components/shared/Button.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Button=undefined;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 
-var Button=function Button(_ref){var onPress=_ref.onPress,children=_ref.children;var
-textStyle=styles.textStyle,containerStyle=styles.containerStyle;
+var Button=function Button(_ref){var onPress=_ref.onPress,children=_ref.children,disabled=_ref.disabled;var
+textStyle=styles.textStyle,containerStyle=styles.containerStyle,disabledContainer=styles.disabledContainer,disabledText=styles.disabledText;
+var additionalContainerStyle=disabled?disabledContainer:{};
+var additionalTextStyle=disabled?disabledText:{};
 return(
-_react2.default.createElement(_reactNative.TouchableOpacity,{onPress:onPress,style:containerStyle},
-_react2.default.createElement(_reactNative.Text,{style:textStyle},
+_react2.default.createElement(_reactNative.TouchableOpacity,{
+onPress:onPress,
+style:[containerStyle,additionalContainerStyle],
+disabled:disabled},
+
+_react2.default.createElement(_reactNative.Text,{style:[textStyle,additionalTextStyle]},
 children)));
 
 
@@ -77974,7 +77987,15 @@ borderWidth:1,
 borderColor:'steelblue',
 marginLeft:5,
 marginRight:5,
-maxHeight:44}};exports.
+maxHeight:44},
+
+
+disabledContainer:{
+borderColor:'lightgray'},
+
+
+disabledText:{
+color:'lightgray'}};exports.
 
 
 
@@ -78186,7 +78207,11 @@ _react2.default.createElement(_reactNative.Text,{style:styles.authorText},author
 _react2.default.createElement(_BookDescription2.default,{style:styles.descriptionContainer},
 this.props.book),
 
-this.renderButton())));
+
+_react2.default.createElement(_reactNative.View,{style:styles.buttonContainer},
+this.renderButton()))));
+
+
 
 
 
@@ -78224,7 +78249,8 @@ textBold:{
 fontWeight:'bold'},
 
 buttonContainer:{
-flex:2},
+paddingTop:30,
+flex:1},
 
 button:{
 paddingTop:60,
@@ -78359,22 +78385,26 @@ _react2.default.createElement(_reactNative.View,{style:{flex:1,justifyContent:'f
 _react2.default.createElement(_shared.Input,{
 label:'Title',
 value:title,
-onChangeText:function onChangeText(text){return _this2.props.modifyBookProperty({prop:'title',value:text});}}),
+placeholder:'What is the title?',
+onChangeText:function onChangeText(value){return _this2.props.modifyBookProperty({prop:'title',value:value});}}),
 
 _react2.default.createElement(_shared.Input,{
 label:'Author',
 value:author,
-onChangeText:function onChangeText(text){return _this2.props.modifyBookProperty({prop:'author',value:text});}}),
+placeholder:'Who is the author?',
+onChangeText:function onChangeText(value){return _this2.props.modifyBookProperty({prop:'author',value:value});}}),
 
 _react2.default.createElement(_shared.Input,{
 label:'Publisher',
 value:publisher,
-onChangeText:function onChangeText(text){return _this2.props.modifyBookProperty({prop:'publisher',value:text});}}),
+placeholder:'Where was the book published?',
+onChangeText:function onChangeText(value){return _this2.props.modifyBookProperty({prop:'publisher',value:value});}}),
 
 _react2.default.createElement(_shared.Input,{
 label:'Categories',
 value:categories,
-onChangeText:function onChangeText(text){return _this2.props.modifyBookProperty({prop:'categories',value:text});}})));
+placeholder:'iOS, Android, Node.js',
+onChangeText:function onChangeText(value){return _this2.props.modifyBookProperty({prop:'categories',value:value});}})));
 
 
 
@@ -78395,7 +78425,39 @@ var _shared=require(524        ); // 524 = ../shared
 var _actions=require(495            ); // 495 = ../../actions
 var _BookEditForm=require(532                       );var _BookEditForm2=babelHelpers.interopRequireDefault(_BookEditForm);var // 532 = ../BookEdit/BookEditForm
 
-BookCreate=function(_Component){babelHelpers.inherits(BookCreate,_Component);function BookCreate(){babelHelpers.classCallCheck(this,BookCreate);return babelHelpers.possibleConstructorReturn(this,(BookCreate.__proto__||Object.getPrototypeOf(BookCreate)).apply(this,arguments));}babelHelpers.createClass(BookCreate,[{key:'createBook',value:function createBook()
+BookCreate=function(_Component){babelHelpers.inherits(BookCreate,_Component);function BookCreate(){var _ref;var _temp,_this,_ret;babelHelpers.classCallCheck(this,BookCreate);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=babelHelpers.possibleConstructorReturn(this,(_ref=BookCreate.__proto__||Object.getPrototypeOf(BookCreate)).call.apply(_ref,[this].concat(args))),_this),_this.
+state={dataIsValid:false},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(BookCreate,[{key:'componentWillMount',value:function componentWillMount()
+
+{
+this.props.clearProperties();
+}},{key:'componentWillReceiveProps',value:function componentWillReceiveProps(
+
+newProps){
+var valid=this.isDataValid(newProps);
+if(this.state.dataIsValid!==valid){
+this.setState({dataIsValid:valid});
+}
+}},{key:'isDataValid',value:function isDataValid(
+
+newProps){var
+title=newProps.title,author=newProps.author,publisher=newProps.publisher,categories=newProps.categories;
+
+if(!title||title.length===0){
+return false;
+}
+if(!author||author.length===0){
+return false;
+}
+if(!publisher||publisher.length===0){
+return false;
+}
+if(!categories||categories.length===0){
+return false;
+}
+
+return true;
+}},{key:'createBook',value:function createBook()
+
 {var _props=
 this.props,title=_props.title,author=_props.author,publisher=_props.publisher,categories=_props.categories;
 this.props.createBook({title:title,author:author,publisher:publisher,categories:categories});
@@ -78404,9 +78466,12 @@ this.props.createBook({title:title,author:author,publisher:publisher,categories:
 {
 return(
 _react2.default.createElement(_reactNative.View,{style:{flex:1}},
-_react2.default.createElement(_BookEditForm2.default,{style:{flex:1}}),
+_react2.default.createElement(_BookEditForm2.default,null),
 _react2.default.createElement(_reactNative.View,{style:{flex:1}},
-_react2.default.createElement(_shared.Button,{onPress:this.createBook.bind(this)},'Create'))));
+_react2.default.createElement(_shared.Button,{
+onPress:this.createBook.bind(this),
+disabled:!this.state.dataIsValid},'Create'))));
+
 
 
 
@@ -78420,7 +78485,7 @@ state.bookEdit,title=_state$bookEdit.title,author=_state$bookEdit.author,categor
 return{title:title,author:author,categories:categories,publisher:publisher};
 };exports.default=
 
-(0,_reactRedux.connect)(mapStateToProps,{createBook:_actions.createBook})(BookCreate);
+(0,_reactRedux.connect)(mapStateToProps,{createBook:_actions.createBook,clearProperties:_actions.clearProperties})(BookCreate);
 }, 533, null, "ReactLibrary/src/components/BookCreate/BookCreate.js");
 ;require(215);
 ;require(0);

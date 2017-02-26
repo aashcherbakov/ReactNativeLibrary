@@ -6,9 +6,36 @@ import { createBook, clearProperties } from '../../actions';
 import BookEditForm from '../BookEdit/BookEditForm';
 
 class BookCreate extends Component {
+  state = { dataIsValid: false }
 
   componentWillMount() {
     this.props.clearProperties();
+  }
+
+  componentWillReceiveProps(newProps) {
+    const valid = this.isDataValid(newProps);
+    if (this.state.dataIsValid !== valid) {
+      this.setState({ dataIsValid: valid });
+    }
+  }
+
+  isDataValid(newProps) {
+    const { title, author, publisher, categories } = newProps;
+
+    if (!title || title.length === 0) {
+      return false;
+    }
+    if (!author || author.length === 0) {
+      return false;
+    }
+    if (!publisher || publisher.length === 0) {
+      return false;
+    }
+    if (!categories || categories.length === 0) {
+      return false;
+    }
+
+    return true;
   }
 
   createBook() {
@@ -21,7 +48,10 @@ class BookCreate extends Component {
       <View style={{ flex: 1 }}>
         <BookEditForm />
         <View style={{ flex: 1 }}>
-          <Button onPress={this.createBook.bind(this)}>
+          <Button 
+            onPress={this.createBook.bind(this)}
+            disabled={!this.state.dataIsValid}
+          >
             Create
           </Button>
         </View>

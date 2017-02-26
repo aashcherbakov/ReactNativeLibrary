@@ -1,11 +1,17 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-const Button = ({ onPress, children }) => {
-  const { textStyle, containerStyle } = styles;
+const Button = ({ onPress, children, disabled }) => {
+  const { textStyle, containerStyle, disabledContainer, disabledText } = styles;
+  const additionalContainerStyle = (disabled) ? disabledContainer : {};
+  const additionalTextStyle = (disabled) ? disabledText : {};
   return (
-    <TouchableOpacity onPress={onPress} style={containerStyle}>
-      <Text style={textStyle}>
+    <TouchableOpacity 
+      onPress={onPress} 
+      style={[containerStyle, additionalContainerStyle]} 
+      disabled={disabled}
+    >
+      <Text style={[textStyle, additionalTextStyle]}>
         {children}
       </Text>
     </TouchableOpacity>
@@ -32,6 +38,14 @@ const styles = {
     marginLeft: 5,
     marginRight: 5,
     maxHeight: 44
+  },
+
+  disabledContainer: {
+    borderColor: 'lightgray',
+  },
+
+  disabledText: {
+    color: 'lightgray'
   }
 };
 
