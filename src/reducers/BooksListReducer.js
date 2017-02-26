@@ -3,7 +3,8 @@ import {
   LOAD_BOOKS_SUCCESS,
   LOAD_BOOKS_FAILED,
   OPEN_BOOK,
-  UPDATE_BOOK_SUCCESS
+  UPDATE_BOOK_SUCCESS,
+  CREATE_BOOK_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -24,6 +25,10 @@ export default (state = INITIAL_STATE, action) => {
     case UPDATE_BOOK_SUCCESS: {
       const updatedList = updateList(state.books, action.payload);
       return { books: updatedList, openedBook: action.payload };
+    }
+    case CREATE_BOOK_SUCCESS: {
+      const updatedList = updateList(state.books, action.payload);
+      return { books: updatedList, createdBook: action.payload };
     }
     default:
       return state;
