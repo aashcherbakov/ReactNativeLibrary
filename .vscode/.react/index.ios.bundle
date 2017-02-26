@@ -70796,9 +70796,9 @@ return state;}
 __d(/* ReactLibrary/src/router.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNativeRouterFlux=require(447                       ); // 447 = react-native-router-flux
 var _BookList=require(494                             );var _BookList2=babelHelpers.interopRequireDefault(_BookList); // 494 = ./components/BookList/BookList
-var _BookInfo=require(528                             );var _BookInfo2=babelHelpers.interopRequireDefault(_BookInfo); // 528 = ./components/BookInfo/BookInfo
-var _BookEdit=require(530                             );var _BookEdit2=babelHelpers.interopRequireDefault(_BookEdit); // 530 = ./components/BookEdit/BookEdit
-var _BookCreate=require(679                                 );var _BookCreate2=babelHelpers.interopRequireDefault(_BookCreate); // 679 = ./components/BookCreate/BookCreate
+var _BookInfo=require(529                             );var _BookInfo2=babelHelpers.interopRequireDefault(_BookInfo); // 529 = ./components/BookInfo/BookInfo
+var _BookEdit=require(531                             );var _BookEdit2=babelHelpers.interopRequireDefault(_BookEdit); // 531 = ./components/BookEdit/BookEdit
+var _BookCreate=require(533                                 );var _BookCreate2=babelHelpers.interopRequireDefault(_BookCreate); // 533 = ./components/BookCreate/BookCreate
 
 var RouterComponent=function RouterComponent(){return(
 _react2.default.createElement(_reactNativeRouterFlux.Router,{sceneStyle:{paddingTop:64}},
@@ -76416,8 +76416,8 @@ var _reactNative=require(12            ); // 12 = react-native
 var _reactRedux=require(404          ); // 404 = react-redux
 
 var _actions=require(495            ); // 495 = ../../actions
-var _shared=require(523        ); // 523 = ../shared
-var _BookListItem=require(527             );var _BookListItem2=babelHelpers.interopRequireDefault(_BookListItem);var // 527 = ./BookListItem
+var _shared=require(524        ); // 524 = ../shared
+var _BookListItem=require(528             );var _BookListItem2=babelHelpers.interopRequireDefault(_BookListItem);var // 528 = ./BookListItem
 
 BookList=function(_Component){babelHelpers.inherits(BookList,_Component);function BookList(){babelHelpers.classCallCheck(this,BookList);return babelHelpers.possibleConstructorReturn(this,(BookList.__proto__||Object.getPrototypeOf(BookList)).apply(this,arguments));}babelHelpers.createClass(BookList,[{key:'componentWillMount',value:function componentWillMount()
 
@@ -76468,7 +76468,7 @@ return{books:books,error:error,loading:loading,openedBook:openedBook,createdBook
 
 (0,_reactRedux.connect)(mapStateToProps,{loadBooks:_actions.loadBooks})(BookList);
 }, 494, null, "ReactLibrary/src/components/BookList/BookList.js");
-__d(/* ReactLibrary/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _BooksListActions=require(496                 );Object.keys(_BooksListActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _BooksListActions[key];}});});var _BookEditActions=require(522                ); // 522 = ./BookEditActions // 496 = ./BooksListActions
+__d(/* ReactLibrary/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _BooksListActions=require(496                 );Object.keys(_BooksListActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _BooksListActions[key];}});});var _BookEditActions=require(523                ); // 523 = ./BookEditActions // 496 = ./BooksListActions
 Object.keys(_BookEditActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _BookEditActions[key];}});});
 }, 495, null, "ReactLibrary/src/actions/index.js");
 __d(/* ReactLibrary/src/actions/BooksListActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.openBook=exports.checkoutBook=exports.loadBooks=undefined;var _axios=require(497    );var _axios2=babelHelpers.interopRequireDefault(_axios); // 497 = axios
@@ -76480,7 +76480,7 @@ var _types=require(444      ); // 444 = ./types
 
 
 
-var _constants=require(678           ); // 678 = ../constants
+var _constants=require(522           ); // 522 = ../constants
 
 var loadBooks=exports.loadBooks=function loadBooks(){
 return function(dispatch){
@@ -77869,7 +77869,7 @@ return callback.apply(null,arr);
 };
 }, 521, null, "axios/lib/helpers/spread.js");
 __d(/* ReactLibrary/src/constants.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var BASE_URL=exports.BASE_URL='https://guarded-retreat-23994.herokuapp.com';
-}, 678, null, "ReactLibrary/src/constants.js");
+}, 522, null, "ReactLibrary/src/constants.js");
 __d(/* ReactLibrary/src/actions/BookEditActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.createBook=exports.updateBook=exports.modifyBookProperty=undefined;var _axios=require(497    );var _axios2=babelHelpers.interopRequireDefault(_axios); // 497 = axios
 var _types=require(444      ); // 444 = ./types
 
@@ -77880,7 +77880,7 @@ var _types=require(444      ); // 444 = ./types
 
 
 
-var _constants=require(678           ); // 678 = ../constants
+var _constants=require(522           ); // 522 = ../constants
 
 var modifyBookProperty=exports.modifyBookProperty=function modifyBookProperty(_ref){var prop=_ref.prop,value=_ref.value;return{
 type:_types.MODIFY_BOOK_PROPERTY,
@@ -77912,11 +77912,12 @@ dispatch({type:_types.CREATE_BOOK_FAILED,payload:err});
 });
 };
 };
-}, 522, null, "ReactLibrary/src/actions/BookEditActions.js");
-__d(/* ReactLibrary/src/components/shared/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _Spinner=require(524        );Object.keys(_Spinner).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Spinner[key];}});});var _Button=require(525       ); // 525 = ./Button // 524 = ./Spinner
-Object.keys(_Button).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Button[key];}});});var _Input=require(526      ); // 526 = ./Input
-Object.keys(_Input).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Input[key];}});});
-}, 523, null, "ReactLibrary/src/components/shared/index.js");
+}, 523, null, "ReactLibrary/src/actions/BookEditActions.js");
+__d(/* ReactLibrary/src/components/shared/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _Spinner=require(525        );Object.keys(_Spinner).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Spinner[key];}});});var _Button=require(526       ); // 526 = ./Button // 525 = ./Spinner
+Object.keys(_Button).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Button[key];}});});var _Input=require(527      ); // 527 = ./Input
+Object.keys(_Input).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Input[key];}});});var _Alert=require(534      ); // 534 = ./Alert
+Object.keys(_Alert).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _Alert[key];}});});
+}, 524, null, "ReactLibrary/src/components/shared/index.js");
 __d(/* ReactLibrary/src/components/shared/Spinner.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Spinner=undefined;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 
@@ -77937,7 +77938,7 @@ alignItems:'center'}};exports.
 
 
 Spinner=Spinner;
-}, 524, null, "ReactLibrary/src/components/shared/Spinner.js");
+}, 525, null, "ReactLibrary/src/components/shared/Spinner.js");
 __d(/* ReactLibrary/src/components/shared/Button.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Button=undefined;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 
@@ -77976,7 +77977,7 @@ maxHeight:44}};exports.
 
 
 Button=Button;
-}, 525, null, "ReactLibrary/src/components/shared/Button.js");
+}, 526, null, "ReactLibrary/src/components/shared/Button.js");
 __d(/* ReactLibrary/src/components/shared/Input.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Input=undefined;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 
@@ -78016,7 +78017,63 @@ justifyContent:'center'}};exports.
 
 
 Input=Input;
-}, 526, null, "ReactLibrary/src/components/shared/Input.js");
+}, 527, null, "ReactLibrary/src/components/shared/Input.js");
+__d(/* ReactLibrary/src/components/shared/Alert.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Alert=undefined;var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
+var _reactNative=require(12            ); // 12 = react-native
+var _Button=require(526       );var _Button2=babelHelpers.interopRequireDefault(_Button); // 526 = ./Button
+
+var Alert=function Alert(_ref){var children=_ref.children,visible=_ref.visible,onAccept=_ref.onAccept,onDecline=_ref.onDecline;var
+sectionStyle=styles.sectionStyle,textStyle=styles.textStyle,containerStyle=styles.containerStyle;
+return(
+_react2.default.createElement(_reactNative.Modal,{
+visible:visible,
+transparent:true,
+animationType:'slide',
+onRequestClose:function onRequestClose(){}},
+
+_react2.default.createElement(_reactNative.View,{style:sectionStyle},
+_react2.default.createElement(_reactNative.Text,null,children))));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+};
+
+var styles={
+sectionStyle:{
+justifyContent:'center'},
+
+textStyle:{
+flex:1,
+fontSize:18,
+textAlign:'center',
+lineHeight:40},
+
+containerStyle:{
+backgroundColor:'rgba(0, 0, 0, 0.75)',
+position:'relative',
+flex:1,
+justifyContent:'center'}};exports.
+
+
+
+Alert=Alert;
+}, 534, null, "ReactLibrary/src/components/shared/Alert.js");
 __d(/* ReactLibrary/src/components/BookList/BookListItem.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactRedux=require(404          ); // 404 = react-redux
 var _reactNative=require(12            ); // 12 = react-native
@@ -78069,12 +78126,12 @@ position:'relative'}};exports.default=
 
 
 (0,_reactRedux.connect)(null,{openBook:_actions.openBook})(BookListItem);
-}, 527, null, "ReactLibrary/src/components/BookList/BookListItem.js");
+}, 528, null, "ReactLibrary/src/components/BookList/BookListItem.js");
 __d(/* ReactLibrary/src/components/BookInfo/BookInfo.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 var _reactRedux=require(404          ); // 404 = react-redux
-var _shared=require(523        ); // 523 = ../shared
-var _BookDescription=require(529                );var _BookDescription2=babelHelpers.interopRequireDefault(_BookDescription); // 529 = ./BookDescription
+var _shared=require(524        ); // 524 = ../shared
+var _BookDescription=require(530                );var _BookDescription2=babelHelpers.interopRequireDefault(_BookDescription); // 530 = ./BookDescription
 var _actions=require(495            );var // 495 = ../../actions
 
 BookInfo=function(_Component){babelHelpers.inherits(BookInfo,_Component);function BookInfo(){babelHelpers.classCallCheck(this,BookInfo);return babelHelpers.possibleConstructorReturn(this,(BookInfo.__proto__||Object.getPrototypeOf(BookInfo)).apply(this,arguments));}babelHelpers.createClass(BookInfo,[{key:'onButtonPress',value:function onButtonPress()
@@ -78163,7 +78220,7 @@ return{book:book};
 };exports.default=
 
 (0,_reactRedux.connect)(mapStateToProps,{checkoutBook:_actions.checkoutBook})(BookInfo);
-}, 528, null, "ReactLibrary/src/components/BookInfo/BookInfo.js");
+}, 529, null, "ReactLibrary/src/components/BookInfo/BookInfo.js");
 __d(/* ReactLibrary/src/components/BookInfo/BookDescription.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 
@@ -78207,15 +78264,16 @@ fontWeight:'bold'}};exports.default=
 
 
 BookDescription;
-}, 529, null, "ReactLibrary/src/components/BookInfo/BookDescription.js");
+}, 530, null, "ReactLibrary/src/components/BookInfo/BookDescription.js");
 __d(/* ReactLibrary/src/components/BookEdit/BookEdit.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactRedux=require(404          ); // 404 = react-redux
 var _reactNative=require(12            ); // 12 = react-native
-var _shared=require(523        ); // 523 = ../shared
+var _shared=require(524        ); // 524 = ../shared
 var _actions=require(495            ); // 495 = ../../actions
-var _BookEditForm=require(677             );var _BookEditForm2=babelHelpers.interopRequireDefault(_BookEditForm);var // 677 = ./BookEditForm
+var _BookEditForm=require(532             );var _BookEditForm2=babelHelpers.interopRequireDefault(_BookEditForm);var // 532 = ./BookEditForm
 
-BookEdit=function(_Component){babelHelpers.inherits(BookEdit,_Component);function BookEdit(){babelHelpers.classCallCheck(this,BookEdit);return babelHelpers.possibleConstructorReturn(this,(BookEdit.__proto__||Object.getPrototypeOf(BookEdit)).apply(this,arguments));}babelHelpers.createClass(BookEdit,[{key:'componentWillMount',value:function componentWillMount()
+BookEdit=function(_Component){babelHelpers.inherits(BookEdit,_Component);function BookEdit(){var _ref;var _temp,_this,_ret;babelHelpers.classCallCheck(this,BookEdit);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=babelHelpers.possibleConstructorReturn(this,(_ref=BookEdit.__proto__||Object.getPrototypeOf(BookEdit)).call.apply(_ref,[this].concat(args))),_this),_this.
+state={showModal:false},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(BookEdit,[{key:'componentWillMount',value:function componentWillMount()
 
 {var _this2=this;
 var book=this.props.openedBook;
@@ -78231,12 +78289,18 @@ publisher:publisher,title:title,author:author,categories:categories});
 
 }},{key:'render',value:function render()
 
-{
+{var _this3=this;
 return(
 _react2.default.createElement(_reactNative.View,{style:{flex:1}},
 _react2.default.createElement(_BookEditForm2.default,null),
 _react2.default.createElement(_reactNative.View,{style:{flex:1}},
-_react2.default.createElement(_shared.Button,{onPress:this.onSavePressed.bind(this)},'Save'))));
+_react2.default.createElement(_shared.Button,{onPress:function onPress(){return _this3.setState({showModal:!_this3.state.showModal});}},'Save')),
+
+
+
+_react2.default.createElement(_shared.Alert,{
+visible:this.state.showModal,
+onPress:this.onSavePressed.bind(this)},'Are you sure you want to delete this?')));
 
 
 
@@ -78252,13 +78316,13 @@ return{openedBook:openedBook,title:title,author:author,publisher:publisher,categ
 };exports.default=
 
 (0,_reactRedux.connect)(mapStateToProps,{modifyBookProperty:_actions.modifyBookProperty,updateBook:_actions.updateBook})(BookEdit);
-}, 530, null, "ReactLibrary/src/components/BookEdit/BookEdit.js");
+}, 531, null, "ReactLibrary/src/components/BookEdit/BookEdit.js");
 __d(/* ReactLibrary/src/components/BookEdit/BookEditForm.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactNative=require(12            ); // 12 = react-native
 var _reactRedux=require(404          ); // 404 = react-redux
 var _actions=require(495            ); // 495 = ../../actions
 
-var _shared=require(523        );var // 523 = ../shared
+var _shared=require(524        );var // 524 = ../shared
 
 BookEditForm=function(_Component){babelHelpers.inherits(BookEditForm,_Component);function BookEditForm(){babelHelpers.classCallCheck(this,BookEditForm);return babelHelpers.possibleConstructorReturn(this,(BookEditForm.__proto__||Object.getPrototypeOf(BookEditForm)).apply(this,arguments));}babelHelpers.createClass(BookEditForm,[{key:'render',value:function render()
 {var _this2=this;var _props=
@@ -78296,13 +78360,13 @@ return{title:title,author:author,publisher:publisher,categories:categories};
 };exports.default=
 
 (0,_reactRedux.connect)(mapStateToProps,{modifyBookProperty:_actions.modifyBookProperty})(BookEditForm);
-}, 677, null, "ReactLibrary/src/components/BookEdit/BookEditForm.js");
+}, 532, null, "ReactLibrary/src/components/BookEdit/BookEditForm.js");
 __d(/* ReactLibrary/src/components/BookCreate/BookCreate.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(279    );var _react2=babelHelpers.interopRequireDefault(_react); // 279 = react
 var _reactRedux=require(404          ); // 404 = react-redux
 var _reactNative=require(12            ); // 12 = react-native
-var _shared=require(523        ); // 523 = ../shared
+var _shared=require(524        ); // 524 = ../shared
 var _actions=require(495            ); // 495 = ../../actions
-var _BookEditForm=require(677                       );var _BookEditForm2=babelHelpers.interopRequireDefault(_BookEditForm);var // 677 = ../BookEdit/BookEditForm
+var _BookEditForm=require(532                       );var _BookEditForm2=babelHelpers.interopRequireDefault(_BookEditForm);var // 532 = ../BookEdit/BookEditForm
 
 BookCreate=function(_Component){babelHelpers.inherits(BookCreate,_Component);function BookCreate(){babelHelpers.classCallCheck(this,BookCreate);return babelHelpers.possibleConstructorReturn(this,(BookCreate.__proto__||Object.getPrototypeOf(BookCreate)).apply(this,arguments));}babelHelpers.createClass(BookCreate,[{key:'createBook',value:function createBook()
 {var _props=
@@ -78330,7 +78394,7 @@ return{title:title,author:author,categories:categories,publisher:publisher};
 };exports.default=
 
 (0,_reactRedux.connect)(mapStateToProps,{createBook:_actions.createBook})(BookCreate);
-}, 679, null, "ReactLibrary/src/components/BookCreate/BookCreate.js");
+}, 533, null, "ReactLibrary/src/components/BookCreate/BookCreate.js");
 ;require(215);
 ;require(0);
 //# sourceMappingURL=index.ios.map

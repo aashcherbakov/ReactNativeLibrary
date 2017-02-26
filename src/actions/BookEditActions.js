@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Actions } from 'react-native-router-flux';
 import {
   MODIFY_BOOK_PROPERTY,
   UPDATE_BOOK,
@@ -20,6 +21,7 @@ export const updateBook = (book, updatedProps) => {
     dispatch({ type: UPDATE_BOOK });
     axios.put(`${BASE_URL}/${book.url}`, updatedProps)
       .then(updatedBook => {
+        Actions.bookInfo({ type: 'back' });
         dispatch({ type: UPDATE_BOOK_SUCCESS, payload: updatedBook.data });
       })
       .catch(err => {
