@@ -4,10 +4,10 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  title: null,
-  author: null,
-  categories: null,
-  publisher: null
+  title: '',
+  author: '',
+  categories: '',
+  publisher: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
