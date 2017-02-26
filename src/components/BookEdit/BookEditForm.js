@@ -9,7 +9,7 @@ class BookEditForm extends Component {
   render() {
     const { title, author, publisher, categories } = this.props;
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'flex-start' }}>
           <Input 
             label='Title'
             value={title} 

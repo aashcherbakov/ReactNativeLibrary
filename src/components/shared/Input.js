@@ -23,16 +23,17 @@ const styles = {
     paddingRight: 5,
     paddingLeft: 20,
     fontSize: 16,
-    minHeight: 50
+    minHeight: 30,
+    backgroundColor: 'rgba(0, 0, 0, 0)'
   },
   labelStyle: {
+    paddingTop: 10,
     fontSize: 12,
-    paddingTop: 5,
+    color: 'steelblue',
     paddingLeft: 20
   },
   containerStyle: {
-    flex: 1,
-    justifyContent: 'center',
+    position: 'relative'
   }
 };
 
