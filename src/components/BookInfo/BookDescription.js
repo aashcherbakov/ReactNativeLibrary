@@ -25,7 +25,6 @@ const renderText = (title, text) => {
 
 const styles = {
   detailsGroup: {
-    flex: 4
   },
   detailsContainer: {
     flexDirection: 'row',

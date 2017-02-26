@@ -61,18 +61,22 @@ const styles = {
   titleContainer: {
     alignItems: 'center',
     paddingTop: 20,
-    flex: 1
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 20
   },
   title: {    
     fontWeight: 'bold',
-    fontSize: 18
+    fontSize: 18,
+    textAlign: 'center'
   },
   authorContainer: {
     alignItems: 'center',
-    flex: 1
+    paddingBottom: 15
   },
   authorText: {
-    fontSize: 16
+    fontSize: 16,
+    fontStyle: 'italic'
   },
   textBold: {
     fontWeight: 'bold'
