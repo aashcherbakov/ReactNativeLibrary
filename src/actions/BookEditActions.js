@@ -7,7 +7,8 @@ import {
   UPDATE_BOOK_FAILED,
   CREATE_BOOK,
   CREATE_BOOK_FAILED,
-  CREATE_BOOK_SUCCESS
+  CREATE_BOOK_SUCCESS,
+  CLEAR_PROPERTIES
 } from './types';
 import { BASE_URL } from '../constants';
 
@@ -15,6 +16,8 @@ export const modifyBookProperty = ({ prop, value }) => ({
   type: MODIFY_BOOK_PROPERTY,
   payload: { prop, value }
 });
+
+export const clearProperties = () => ({ type: CLEAR_PROPERTIES });
 
 export const updateBook = (book, updatedProps) => {
   return (dispatch) => {

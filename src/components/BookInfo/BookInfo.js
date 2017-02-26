@@ -40,12 +40,10 @@ class BookInfo extends Component {
           <BookDescription style={styles.descriptionContainer}>
             {this.props.book}
           </BookDescription>
-
+          <View style={styles.buttonContainer}>
+            {this.renderButton()}
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          {this.renderButton()}
-        </View>
-        
       </View>
     );
   }
@@ -82,9 +80,11 @@ const styles = {
     fontWeight: 'bold'
   },
   buttonContainer: {
-    flex: 2
+    paddingTop: 30, 
+    flex: 1
   },
   button: {
+    paddingTop: 60,
     height: 44
   }
 };

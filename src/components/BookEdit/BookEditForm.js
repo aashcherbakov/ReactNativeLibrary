@@ -13,22 +13,26 @@ class BookEditForm extends Component {
           <Input 
             label='Title'
             value={title} 
-            onChangeText={(text) => this.props.modifyBookProperty({ prop: 'title', value: text })}
+            placeholder='What is the title?'
+            onChangeText={(value) => this.props.modifyBookProperty({ prop: 'title', value })}
           />
           <Input 
             label='Author'
             value={author} 
-            onChangeText={(text) => this.props.modifyBookProperty({ prop: 'author', value: text })}
+            placeholder='Who is the author?'
+            onChangeText={(value) => this.props.modifyBookProperty({ prop: 'author', value })}
           />
           <Input 
             label='Publisher'
             value={publisher} 
-            onChangeText={(text) => this.props.modifyBookProperty({ prop: 'publisher', value: text })}
+            placeholder='Where was the book published?'
+            onChangeText={(value) => this.props.modifyBookProperty({ prop: 'publisher', value })}
           />
           <Input 
             label='Categories'
             value={categories} 
-            onChangeText={(text) => this.props.modifyBookProperty({ prop: 'categories', value: text })}
+            placeholder='iOS, Android, Node.js'
+            onChangeText={(value) => this.props.modifyBookProperty({ prop: 'categories', value })}
           />
         </View>
     );
