@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+import { Spinner } from './Spinner';
 
-const Button = ({ onPress, children, disabled }) => {
+const Button = ({ onPress, children, disabled, loading }) => {
   const { textStyle, containerStyle, disabledContainer, disabledText } = styles;
   const additionalContainerStyle = (disabled) ? disabledContainer : {};
   const additionalTextStyle = (disabled) ? disabledText : {};
@@ -11,10 +12,20 @@ const Button = ({ onPress, children, disabled }) => {
       style={[containerStyle, additionalContainerStyle]} 
       disabled={disabled}
     >
-      <Text style={[textStyle, additionalTextStyle]}>
-        {children}
-      </Text>
+      {renderText(children, [textStyle, additionalTextStyle], loading)}
     </TouchableOpacity>
+  );
+};
+
+const renderText = (children, style, loading = false) => {
+  if (loading) {
+    return <Spinner size={'small'} />;
+  }
+
+  return (
+    <Text style={style}>
+      {children}
+    </Text>
   );
 };
 

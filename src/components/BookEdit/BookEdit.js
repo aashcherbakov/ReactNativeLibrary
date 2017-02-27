@@ -36,7 +36,10 @@ class BookEdit extends Component {
       <View style={{ flex: 1 }}>
         <BookEditForm />
         <View style={{ flex: 1 }}>
-          <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>
+          <Button 
+            onPress={() => this.setState({ showModal: !this.state.showModal })}
+            loading={this.props.loading}
+          >
             Save
           </Button>
         </View>
@@ -53,9 +56,9 @@ class BookEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { openedBook } = state.booksList;
+  const { openedBook, loading } = state.booksList;
   const { title, author, publisher, categories } = state.bookEdit;
-  return { openedBook, title, author, publisher, categories };
+  return { openedBook, title, author, publisher, categories, loading };
 };
 
 export default connect(mapStateToProps, { modifyBookProperty, updateBook })(BookEdit);
